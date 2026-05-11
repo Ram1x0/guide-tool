@@ -2632,19 +2632,20 @@ function render(){
 
  let list = creatures.filter(c => {
 
-  // 天気判定
+  // 天気一致
   const weatherMatch =
     c.weather.length === ALL_WEATHER.length ||
     c.weather.includes(currentWeather);
 
-  // 時間判定
+  // 時間一致
   const timeMatch =
     c.time.length === ALL_TIME.length ||
     c.time.includes(currentZone);
 
-  // 今出現するか
+  // 今出現しているか
   const isNow = weatherMatch && timeMatch;
 
+  // モード分岐
   if (weatherMode === "current") {
     return isNow;
   }
@@ -2654,48 +2655,12 @@ function render(){
   }
 
   if (weatherMode === "hidden") {
+    // 今出現していないもの全部
     return !isNow;
   }
 
   return false;
 });
-
-  // 全時間 or 一致
-  const timeMatch =
-    c.time.length === ALL_TIME.length ||
-    c.time.includes(currentZone);
-
-  return weatherMatch && timeMatch;
-});
-
- // フィルター
- if(currentFilter!=="all"){
-  list=list.filter(c=>c.type===currentFilter);
- }
-
-  // ソート
- if(currentSort === "level"){
-  list.sort((a,b)=>{
-    // 種類順
-    const typeOrder = {
-      fish: 0,
-      bug: 1,
-      bird: 2
-    };
-    // 先に種類を比較
-    if(typeOrder[a.type] !== typeOrder[b.type]){
-      return typeOrder[a.type] - typeOrder[b.type];
-    }
-    // 次にレベル順
-    if(a.level !== b.level){
-      return a.level - b.level;
-    }
-
-    // 同レベルなら図鑑順
-    return a.bookIndex - b.bookIndex;
-
-  });
-}
 
  // 検索
  const keyword=document.getElementById("search").value;
