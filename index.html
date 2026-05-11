@@ -2585,29 +2585,53 @@ function getZone(){
 // フォーマット
 function formatTime(arr){
 
-  const has = (t) => arr.includes(t);
+  const order = ["0-6","6-12","12-18","18-0"];
 
+  // 全部ある場合
   if(arr.length === 4) return "全時間";
 
+  // 並び順に揃える
+  const sorted = order.filter(t => arr.includes(t));
+
+  // 連続をまとめる
   let result = [];
+  let start = null;
+  let prev = null;
 
-  // 朝（0-6 + 6-12）
-  if(has("0-6") && has("6-12")){
-    result.push("0〜12");
-  } else {
-    if(has("0-6")) result.push("0〜6");
-    if(has("6-12")) result.push("6〜12");
+  const convert = (t) => {
+    if(t === "0-6") return 0;
+    if(t === "6-12") return 6;
+    if(t === "12-18") return 12;
+    if(t === "18-0") return 18;
+  };
+
+  for(let i=0;i<sorted.length;i++){
+    const cur = sorted[i];
+
+    if(start === null){
+      start = cur;
+      prev = cur;
+      continue;
+    }
+
+    // 連続しているかチェック
+    const prevIndex = order.indexOf(prev);
+    const curIndex = order.indexOf(cur);
+
+    if(curIndex === prevIndex + 1){
+      prev = cur;
+    } else {
+      result.push(`${start.replace("-", "〜").split("〜")[0]}〜${prev.replace("-", "〜").split("〜")[1]}`);
+      start = cur;
+      prev = cur;
+    }
   }
 
-  // 昼〜夜（12-18 + 18-0）
-  if(has("12-18") && has("18-0")){
-    result.push("12〜0");
-  } else {
-    if(has("12-18")) result.push("12〜18");
-    if(has("18-0")) result.push("18〜0");
+  if(start){
+    result.push(`${start.replace("-", "〜").split("〜")[0]}〜${prev.replace("-", "〜").split("〜")[1]}`);
   }
 
-  return result.length > 0 ? result.join(" / ") : "なし";
+  return result.join("/");
 }
 
 function formatWeather(arr){
