@@ -2671,6 +2671,18 @@ function render(){
   list=list.filter(c=>c.name.includes(keyword));
  }
 
+if(currentSort === "level"){
+  list.sort((a,b)=>{
+    const typeOrder = { fish:0, bug:1, bird:2 };
+
+    if(typeOrder[a.type] !== typeOrder[b.type]){
+      return typeOrder[a.type] - typeOrder[b.type];
+    }
+
+    return a.level - b.level;
+  });
+}
+
  const el=document.getElementById("list");
  el.innerHTML="";
 
