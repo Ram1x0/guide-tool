@@ -2652,11 +2652,33 @@ function render(){
 }else if(weatherMode === "hidden"){
 
   // 今は出現しない
-  weatherMatch =
-    !(
-      c.weather.length === ALL_WEATHER.length ||
-      c.weather.includes(currentWeather)
-    );
+  // 天気判定
+const weatherMatch =
+  c.weather.length === ALL_WEATHER.length ||
+  c.weather.includes(currentWeather);
+
+// 時間判定
+const timeMatch =
+  c.time.length === ALL_TIME.length ||
+  c.time.includes(currentZone);
+
+// 今出現するかどうか
+const isNow = weatherMatch && timeMatch;
+
+if (weatherMode === "current") {
+
+  // 今出現するもの
+  return isNow;
+
+} else if (weatherMode === "only") {
+
+  // 今の天気だけ限定（今の仕様維持）
+  return weatherMatch && c.weather.length === 1;
+
+} else if (weatherMode === "hidden") {
+
+  // ⭐今出現しないもの全部
+  return !isNow;
 }
 
   // 全時間 or 一致
