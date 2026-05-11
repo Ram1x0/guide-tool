@@ -2661,8 +2661,11 @@ function render(){
 
   return false;
 });
-
- // 検索
+// ⭐ここが重要（タイプフィルター）
+ if(currentFilter !== "all"){
+   list = list.filter(c => c.type === currentFilter);
+ }
+// 検索
  const keyword=document.getElementById("search").value;
  if(keyword){
   list=list.filter(c=>c.name.includes(keyword));
