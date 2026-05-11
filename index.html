@@ -2601,7 +2601,7 @@ function formatTime(arr){
 
   // 12-18 + 18-0 → 12〜24
   if(has("12-18") && has("18-0")){
-    result.push("12〜24");
+    result.push("12〜0");
   } else {
     if(has("12-18")) result.push("12〜18");
     if(has("18-0")) result.push("18〜0");
