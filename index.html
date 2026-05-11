@@ -677,6 +677,39 @@ body.dark .weather-next{
     inset 0 2px 5px rgba(255,255,255,0.9),
     inset 0 -2px 5px rgba(0,0,0,0.05);
 }
+
+/* モーダル情報横並び */
+.modal-info-row{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  gap:16px;
+
+  margin-top:10px;
+
+  text-align:left;
+}
+
+/* 左 */
+.modal-left{
+  flex:1;
+}
+
+/* 右 */
+.modal-right{
+
+  min-width:90px;
+
+  text-align:left;
+
+  font-size:11px;
+
+  line-height:1.5;
+}
 </style>
 </head>
 
@@ -731,8 +764,19 @@ body.dark .weather-next{
     <h3 id="m_name"></h3>
     <img id="m_img" style="width:100%;height:100px;object-fit:contain;">
     <p id="m_loc"></p>
-    <p id="m_weather"></p>
-    <p id="m_time"></p>
+    <div class="modal-info-row">
+    <div class="modal-left">
+     <p id="m_weather"></p>
+     <p id="m_time"></p>
+    </div>
+    <div class="modal-right">
+     <p id="m_price1"></p>
+     <p id="m_price2"></p>
+     <p id="m_price3"></p>
+     <p id="m_price4"></p>
+     <p id="m_price5"></p>
+    </div>
+   </div>
     <button onclick="closeModal()">閉じる</button>
   </div>
 </div>
@@ -2860,6 +2904,11 @@ function openModal(c){
  m_loc.innerText=c.location;
  m_weather.innerText="天気："+formatWeather(c.weather);
  m_time.innerText="時間："+formatTime(c.time);
+ m_price1.innerText = `★1 ${c.price?.[1] ?? "-"}`;
+ m_price2.innerText = `★2 ${c.price?.[2] ?? "-"}`;
+ m_price3.innerText = `★3 ${c.price?.[3] ?? "-"}`;
+ m_price4.innerText = `★4 ${c.price?.[4] ?? "-"}`;
+ m_price5.innerText = `★5 ${c.price?.[5] ?? "-"}`;
 }
 function closeModal(){
  modal.style.display="none";
