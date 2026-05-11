@@ -2584,7 +2584,7 @@ function formatTime(arr){
 
   let result = [];
 
-  // 0-6 + 6-12 → 0〜12
+  // 朝（0-6 + 6-12）
   if(has("0-6") && has("6-12")){
     result.push("0〜12");
   } else {
@@ -2592,7 +2592,7 @@ function formatTime(arr){
     if(has("6-12")) result.push("6〜12");
   }
 
-  // 12-18 + 18-0 → 12〜24
+  // 昼〜夜（12-18 + 18-0）
   if(has("12-18") && has("18-0")){
     result.push("12〜0");
   } else {
@@ -2600,7 +2600,7 @@ function formatTime(arr){
     if(has("18-0")) result.push("18〜0");
   }
 
-  return result.join(" / ");
+  return result.length > 0 ? result.join(" / ") : "なし";
 }
 
 function formatWeather(arr){
