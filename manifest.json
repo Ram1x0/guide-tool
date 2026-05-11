@@ -1,14 +1,14 @@
 {
   "name": "はとぴ図鑑",
   "short_name": "はとぴ図鑑",
-  "start_url": "/pet-food-list/list.html",
-  "scope": "/pet-food-list/",
+  "start_url": "/guide-tool/list.html",
+  "scope": "/guide-tool/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#38bdf8",
   "icons": [
     {
-      "src": "/images/list.PNG",
+      "src": "images/list.PNG",
       "sizes": "180x180",
       "type": "image/png"
     }
