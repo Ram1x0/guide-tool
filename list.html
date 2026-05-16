@@ -1807,7 +1807,7 @@ const bugData = [
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-温泉",
- img:"bugs/023.PNG"
+ img:"bugs/024.PNG"
 },
 {
  name:"ピンクタイワンクツワムシ",
@@ -1815,7 +1815,7 @@ const bugData = [
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
- img:"bugs/024.PNG"
+ img:"bugs/023.PNG"
 },
 {
  name:"キリギリス",
@@ -2883,7 +2883,8 @@ if(currentSort === "level"){
 
     return a.level - b.level;
   });
-
+ }
+  
 if(currentSort === "unchecked"){
   list.sort((a,b)=>{
 
@@ -2899,7 +2900,6 @@ if(currentSort === "unchecked"){
     return a.bookIndex - b.bookIndex;
   });
  }
-}
 
  const el=document.getElementById("list");
  el.innerHTML="";
