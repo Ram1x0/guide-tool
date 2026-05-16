@@ -882,7 +882,7 @@ const weatherData = {
    "18-0":"雨",
    "0-6":"雨"
  },
- "2026-05-15": {
+ "2026-05-17": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -1574,6 +1574,46 @@ const fishData = [
  time:["6-12","12-18"],
  location:"海釣りクエスト(金魚影)",
  img:"fish/084.PNG"
+},
+{
+ name:"積みカクレクマノミ(青)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"東海",
+ img:"fish/1001.PNG"
+},
+{
+ name:"積みカクレクマノミ(赤)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"東海",
+ img:"fish/1002.PNG"
+},
+{
+ name:"積みカクレクマノミ(青緑)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"東海",
+ img:"fish/1003.PNG"
+},
+{
+ name:"積みカクレクマノミ(紫)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"東海",
+ img:"fish/1004.PNG"
+},
+{
+ name:"積みカクレクマノミ(虹)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"東海",
+ img:"fish/1005.PNG"
 }
   // ここに追加していく
 ].map((c,i) => ({
@@ -2095,6 +2135,46 @@ const bugData = [
  time:["18-0","0-6"],
  location:"森林-コジカ塔",
  img:"bugs/064.PNG"
+},
+{
+ name:"積み木アカイトトンボ(ピンク)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林-ジャンプステージ",
+ img:"bugs/1001.PNG"
+},
+{
+ name:"積み木アカイトトンボ(黄)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林-不思議な松林",
+ img:"bugs/1002.PNG"
+},
+{
+ name:"積み木アカイトトンボ(青)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林-コジカ塔",
+ img:"bugs/1003.PNG"
+},
+{
+ name:"積み木アカイトトンボ(紫)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林森の島",
+ img:"bugs/1004.PNG"
+},
+{
+ name:"積み木アカイトトンボ(虹)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"特殊積み木虫クエスト",
+ img:"bugs/1005.PNG"
 }
  // ここに追加していく
 ].map((c,i) => ({
@@ -2608,6 +2688,46 @@ const birdData = [
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-コジカ塔(木のてっぺん)",
  img:"birds/063.PNG"
+}, 
+{
+ name:"積み木スズメ(ピンク)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山-石海岸の崖",
+ img:"birds/1001.PNG"
+},
+{
+ name:"積み木スズメ(青)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山-温泉",
+ img:"birds/1002.PNG"
+},
+{
+ name:"積み木スズメ(緑)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山-火山湖",
+ img:"birds/1003.PNG"
+},
+{
+ name:"積み木スズメ(紫)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山-遺跡",
+ img:"birds/1004.PNG"
+},
+{
+ name:"積み木スズメ(虹)",
+ level:1,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"特殊積み木鳥クエスト",
+ img:"birds/1005.PNG"
 }
  // ここに追加していく
 ].map((c,i) => ({
@@ -2789,7 +2909,7 @@ if(currentSort === "level"){
     check-btn
     ${checkedData[c.name] ? "checked" : ""}
   ">
-    ${checkedData[c.name] ? "✔" : ""}
+    ${checkedData[c.name] ? "⭐️" : ""}
   </button>
 
   <img src="${c.img}" loading="lazy" decoding="async">
@@ -3001,7 +3121,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/15";
+  "最終更新 2026/05/16";
 </script>
 
 </body>
