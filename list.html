@@ -786,9 +786,10 @@ body.dark .weather-next{
   </div>
 
   <div class="filter" style="margin-top:6px;">
-    <button onclick="setSort('book')" id="s_book">図鑑順</button>
-    <button onclick="setSort('level')" id="s_level">レベル順</button>
-  </div>
+  <button onclick="setSort('book')" id="s_book">図鑑順</button>
+  <button onclick="setSort('level')" id="s_level">レベル順</button>
+  <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
+</div>
 
 </div>
 
@@ -1576,7 +1577,7 @@ const fishData = [
  img:"fish/084.PNG"
 },
 {
- name:"積みカクレクマノミ(青)",
+ name:"積み木カクレクマノミ(青)",
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -1584,7 +1585,7 @@ const fishData = [
  img:"fish/1001.PNG"
 },
 {
- name:"積みカクレクマノミ(赤)",
+ name:"積み木カクレクマノミ(赤)",
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -1592,7 +1593,7 @@ const fishData = [
  img:"fish/1002.PNG"
 },
 {
- name:"積みカクレクマノミ(青緑)",
+ name:"積み木カクレクマノミ(青緑)",
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -1600,7 +1601,7 @@ const fishData = [
  img:"fish/1003.PNG"
 },
 {
- name:"積みカクレクマノミ(紫)",
+ name:"積み木カクレクマノミ(紫)",
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -1608,7 +1609,7 @@ const fishData = [
  img:"fish/1004.PNG"
 },
 {
- name:"積みカクレクマノミ(虹)",
+ name:"積み木カクレクマノミ(虹)",
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -2882,6 +2883,22 @@ if(currentSort === "level"){
 
     return a.level - b.level;
   });
+
+if(currentSort === "unchecked"){
+  list.sort((a,b)=>{
+
+    const aChecked = checkedData[a.name] ? 1 : 0;
+    const bChecked = checkedData[b.name] ? 1 : 0;
+
+    // 未チェック優先
+    if(aChecked !== bChecked){
+      return aChecked - bChecked;
+    }
+
+    // 同じなら図鑑順
+    return a.bookIndex - b.bookIndex;
+  });
+ }
 }
 
  const el=document.getElementById("list");
@@ -3026,7 +3043,7 @@ function setFilter(t){
 
 function setSort(type){
   currentSort = type;
-  ["book","level"].forEach(x=>{
+  ["book","level","unchecked"].forEach(x=>{
     document.getElementById("s_"+x).classList.remove("active");
   });
   document.getElementById("s_"+type).classList.add("active");
