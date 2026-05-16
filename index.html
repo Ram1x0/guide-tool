@@ -430,6 +430,53 @@ body.dark .weather-next{
     0 2px 6px rgba(0,0,0,0.2);
 }
 
+  /* チェックボタン */
+  .check-btn{
+
+  position:absolute;
+
+  top:6px;
+  right:6px;
+
+  width:22px;
+  height:22px;
+
+  border-radius:50%;
+
+  border:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.95) 0%,
+      rgba(240,240,240,0.95) 100%
+    );
+
+  font-size:12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.15);
+
+  z-index:10;
+}
+
+/* ON状態 */
+.check-btn.checked{
+
+  background:
+    linear-gradient(
+      180deg,
+      #73d8ff 0%,
+      #49beff 100%
+    );
+
+  color:white;
+}
+
 /* 名前 */
 .item-name{
 
@@ -823,6 +870,9 @@ let weatherMode = "current";
 
 let currentZone="";
 let currentWeather="";
+  // チェック保存
+let checkedData =
+  JSON.parse(localStorage.getItem("checkedData") || "{}");
 
 // 天気(毎日入力する) 
 const weatherData = {
@@ -2731,22 +2781,47 @@ if(currentSort === "level"){
 
   <div class="img-wrap">
 
-    <div class="level-badge">
-      Lv.${c.level ?? "-"}
-    </div>
-
-    <img src="${c.img}" loading="lazy" decoding="async">
-
+  <div class="level-badge">
+    Lv.${c.level ?? "-"}
   </div>
+
+  <button class="
+    check-btn
+    ${checkedData[c.name] ? "checked" : ""}
+  ">
+    ${checkedData[c.name] ? "✔" : ""}
+  </button>
+
+  <img src="${c.img}" loading="lazy" decoding="async">
+
+</div>
 
   <div class="item-name">
     ${c.name}
   </div>
 
 `;
+   // モーダル
+div.onclick=()=>openModal(c);
 
-  div.onclick=()=>openModal(c);
-  el.appendChild(div);
+// チェックボタン
+const checkBtn = div.querySelector(".check-btn");
+
+checkBtn.onclick = (e)=>{
+
+  e.stopPropagation();
+
+  checkedData[c.name] = !checkedData[c.name];
+
+  localStorage.setItem(
+    "checkedData",
+    JSON.stringify(checkedData)
+  );
+
+  render();
+};
+
+el.appendChild(div);
  });
 }
 
@@ -2926,7 +3001,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/15";
+  "最終更新 2026/05/16";
 </script>
 
 </body>
