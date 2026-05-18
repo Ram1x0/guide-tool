@@ -430,8 +430,25 @@ body.dark .weather-next{
     0 2px 6px rgba(0,0,0,0.2);
 }
 
-  /* チェックボタン */
-  .check-btn{
+.shadow-badge{
+  position:absolute;
+  bottom:6px;
+  left:6px;
+  z-index:5;
+  padding:2px 5px;
+  border-radius:999px;
+  font-size:7px;
+  color:white;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.65) 0%,
+      rgba(0,0,0,0.45) 100%
+    );
+}
+
+/* チェックボタン */
+.check-btn{
 
   position:absolute;
 
@@ -791,6 +808,36 @@ body.dark .weather-next{
   <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
 </div>
 
+  <div class="card" style="margin-top:8px; padding:10px 14px;">
+  
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    margin-bottom:6px;
+  ">
+    <span>レベル範囲</span>
+    <span id="levelRangeText">Lv.1〜14</span>
+  </div>
+
+  <input
+    type="range"
+    id="levelMin"
+    min="1"
+    max="14"
+    value="1"
+    style="width:100%;"
+  >
+  <input
+    type="range"
+    id="levelMax"
+    min="1"
+    max="14"
+    value="14"
+    style="width:100%; margin-top:6px;"
+  >
+</div>
+
 </div>
 
   <div id="list" class="grid"></div>
@@ -907,6 +954,9 @@ let weatherMode = "current";
 
 let currentZone="";
 let currentWeather="";
+
+let minLevel = 1;
+let maxLevel = 14;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
@@ -936,6 +986,7 @@ const fishData = [
 {
  name:"ヨーロピアンパーチ",
  level:1,
+ shadow:"小",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
@@ -3117,6 +3168,12 @@ function render(){
   list=list.filter(c=>c.name.includes(keyword));
  }
 
+// レベル範囲
+ list = list.filter(c =>
+  c.level >= minLevel &&
+  c.level <= maxLevel
+);
+
 if(currentSort === "level"){
   list.sort((a,b)=>{
     const typeOrder = { fish:0, bug:1, bird:2 };
@@ -3176,6 +3233,12 @@ if(currentSort === "unchecked"){
   <div class="level-badge">
     Lv.${c.level ?? "-"}
   </div>
+
+ ${c.shadow ? `
+  <div class="shadow-badge">
+  ${c.shadow}
+ </div>
+   ` : ""}
 
   <button class="
     check-btn
@@ -3375,9 +3438,42 @@ function openModal(c){
  m_price4.innerText = `★4｜${c.price?.[4] ?? "-"}`;
  m_price5.innerText = `★5｜${c.price?.[5] ?? "-"}`;
 }
+  
 function closeModal(){
  modal.style.display="none";
 }
+
+const levelMin = document.getElementById("levelMin");
+const levelMax = document.getElementById("levelMax");
+const levelRangeText =
+  document.getElementById("levelRangeText");
+
+function updateLevelRange(){
+
+  minLevel = Number(levelMin.value);
+  maxLevel = Number(levelMax.value);
+
+  // 入れ替わり防止
+  if(minLevel > maxLevel){
+    [minLevel,maxLevel] =
+    [maxLevel,minLevel];
+  }
+
+  levelRangeText.textContent =
+    `Lv.${minLevel}〜${maxLevel}`;
+
+  render();
+}
+
+levelMin.addEventListener(
+  "input",
+  updateLevelRange
+);
+
+levelMax.addEventListener(
+  "input",
+  updateLevelRange
+);
 
 const popupVersion = "1.0.0";
 
