@@ -430,8 +430,25 @@ body.dark .weather-next{
     0 2px 6px rgba(0,0,0,0.2);
 }
 
-  /* チェックボタン */
-  .check-btn{
+.shadow-badge{
+  position:absolute;
+  bottom:6px;
+  left:6px;
+  z-index:5;
+  padding:2px 5px;
+  border-radius:999px;
+  font-size:7px;
+  color:white;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.65) 0%,
+      rgba(0,0,0,0.45) 100%
+    );
+}
+
+/* チェックボタン */
+.check-btn{
 
   position:absolute;
 
@@ -768,7 +785,7 @@ body.dark .weather-next{
 </div>
 
 <div style="position:relative;">
-  <input type="text" id="search" class="search" placeholder="🔍 名前で検索">
+  <input type="text" id="search" class="search" placeholder="🔍 名前・場所で検索">
   <button id="clearBtn">×</button>
 </div>
 
@@ -791,6 +808,36 @@ body.dark .weather-next{
   <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
 </div>
 
+  <div class="card" style="margin-top:8px; padding:10px 14px;">
+  
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    margin-bottom:6px;
+  ">
+    <span>レベル範囲</span>
+    <span id="levelRangeText">Lv.1〜14</span>
+  </div>
+
+  <input
+    type="range"
+    id="levelMin"
+    min="1"
+    max="14"
+    value="1"
+    style="width:100%;"
+  >
+  <input
+    type="range"
+    id="levelMax"
+    min="1"
+    max="14"
+    value="14"
+    style="width:100%; margin-top:6px;"
+  >
+</div>
+
 </div>
 
   <div id="list" class="grid"></div>
@@ -805,6 +852,7 @@ body.dark .weather-next{
     <div class="modal-left">
      <p id="m_weather"></p>
      <p id="m_time"></p>
+     <p id="m_star5"></p>
     </div>
     <div class="modal-right">
      <p id="m_price1"></p>
@@ -859,9 +907,46 @@ X（旧Twitter）：
  </div>
 </div>
 
+<div id="updatePopup" style="
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(4px);
+z-index:2000;
+">
+
+<div style="
+background:white;
+width:90%;
+max-width:320px;
+margin:80px auto;
+padding:18px;
+border-radius:28px;
+text-align:center;
+">
+
+<h3>✨アップデート</h3>
+
+<p style="font-size:12px; line-height:1.7;">
+
+・場所検索機能追加<br>
+・レベル範囲検索追加<br>
+・魚影表示追加(順次)<br>
+・野鳥★5条件追加(順次)
+
+</p>
+
+<button onclick="closeUpdatePopup()">
+OK
+</button>
+
+</div>
+</div>
+  
 <script>
 
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "1.1.0";
 
 let currentFilter="all";
 let currentSort = "book";
@@ -871,6 +956,9 @@ let weatherMode = "current";
 
 let currentZone="";
 let currentWeather="";
+
+let minLevel = 1;
+let maxLevel = 14;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
@@ -900,6 +988,7 @@ const fishData = [
 {
  name:"ヨーロピアンパーチ",
  level:1,
+ shadow:"小",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
@@ -2325,6 +2414,7 @@ const birdData = [
 {
  name:"コマドリ",
  level:1,
+ star5:"全天気 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -2829,6 +2919,7 @@ const birdData = [
 {
  name:"コムクドリ",
  level:11,
+ star5:"虹 / 6〜18",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-風車の花畑",
@@ -3023,9 +3114,16 @@ const searchInput = document.getElementById("search");
 const clearBtn = document.getElementById("clearBtn");
 
 // 入力時
+let searchTimer;
 searchInput.addEventListener("input", ()=>{
-  clearBtn.style.display = searchInput.value ? "block" : "none";
-  render();
+  clearBtn.style.display =
+    searchInput.value
+    ? "block"
+    : "none";
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{
+    render();
+  }, 180);
 });
 
 // ×ボタン
@@ -3078,8 +3176,17 @@ function render(){
 // 検索
  const keyword=document.getElementById("search").value;
  if(keyword){
-  list=list.filter(c=>c.name.includes(keyword));
- }
+  list = list.filter(c =>
+    c.name.includes(keyword) ||
+    c.location.includes(keyword)
+  );
+}
+
+// レベル範囲
+ list = list.filter(c =>
+  c.level >= minLevel &&
+  c.level <= maxLevel
+);
 
 if(currentSort === "level"){
   list.sort((a,b)=>{
@@ -3140,6 +3247,12 @@ if(currentSort === "unchecked"){
   <div class="level-badge">
     Lv.${c.level ?? "-"}
   </div>
+
+ ${c.shadow ? `
+  <div class="shadow-badge">
+  ${c.shadow}
+ </div>
+   ` : ""}
 
   <button class="
     check-btn
@@ -3269,9 +3382,6 @@ function setSort(type){
   render();
 }
 
-// 検索
-document.getElementById("search").addEventListener("input",render);
-
 // ダークモード
 const darkToggle = document.getElementById("darkToggle");
 
@@ -3338,9 +3448,69 @@ function openModal(c){
  m_price3.innerText = `★3｜${c.price?.[3] ?? "-"}`;
  m_price4.innerText = `★4｜${c.price?.[4] ?? "-"}`;
  m_price5.innerText = `★5｜${c.price?.[5] ?? "-"}`;
+ m_star5.innerHTML =
+  c.star5
+  ? `★5条件：<br>${c.star5}`
+  : "";
 }
+  
 function closeModal(){
  modal.style.display="none";
+}
+
+const levelMin = document.getElementById("levelMin");
+const levelMax = document.getElementById("levelMax");
+const levelRangeText =
+  document.getElementById("levelRangeText");
+
+function updateLevelRange(){
+
+  minLevel = Number(levelMin.value);
+  maxLevel = Number(levelMax.value);
+
+  // 入れ替わり防止
+  if(minLevel > maxLevel){
+    [minLevel,maxLevel] =
+    [maxLevel,minLevel];
+  }
+
+  levelRangeText.textContent =
+    `Lv.${minLevel}〜${maxLevel}`;
+
+  render();
+}
+
+levelMin.addEventListener(
+  "input",
+  updateLevelRange
+);
+
+levelMax.addEventListener(
+  "input",
+  updateLevelRange
+);
+
+const popupVersion = "1.1.0";
+
+if(
+ localStorage.getItem("popupVersion")
+ !== popupVersion
+){
+ document.getElementById(
+   "updatePopup"
+ ).style.display = "block";
+}
+
+function closeUpdatePopup(){
+
+ localStorage.setItem(
+   "popupVersion",
+   popupVersion
+ );
+
+ document.getElementById(
+   "updatePopup"
+ ).style.display = "none";
 }
 
 // 初期化
