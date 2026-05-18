@@ -785,7 +785,7 @@ body.dark .weather-next{
 </div>
 
 <div style="position:relative;">
-  <input type="text" id="search" class="search" placeholder="🔍 名前で検索">
+  <input type="text" id="search" class="search" placeholder="🔍 名前・場所で検索">
   <button id="clearBtn">×</button>
 </div>
 
@@ -3168,8 +3168,11 @@ function render(){
 // 検索
  const keyword=document.getElementById("search").value;
  if(keyword){
-  list=list.filter(c=>c.name.includes(keyword));
- }
+  list = list.filter(c =>
+    c.name.includes(keyword) ||
+    c.location.includes(keyword)
+  );
+}
 
 // レベル範囲
  list = list.filter(c =>
