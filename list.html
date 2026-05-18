@@ -852,6 +852,7 @@ body.dark .weather-next{
     <div class="modal-left">
      <p id="m_weather"></p>
      <p id="m_time"></p>
+     <p id="m_star5"></p>
     </div>
     <div class="modal-right">
      <p id="m_price1"></p>
@@ -2412,6 +2413,7 @@ const birdData = [
 {
  name:"コマドリ",
  level:1,
+ star5:"全天気 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -3437,6 +3439,10 @@ function openModal(c){
  m_price3.innerText = `★3｜${c.price?.[3] ?? "-"}`;
  m_price4.innerText = `★4｜${c.price?.[4] ?? "-"}`;
  m_price5.innerText = `★5｜${c.price?.[5] ?? "-"}`;
+ m_star5.innerText =
+  c.star5
+  ? `★5条件：${c.star5}`
+  : "";
 }
   
 function closeModal(){
