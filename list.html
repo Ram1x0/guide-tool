@@ -3343,6 +3343,29 @@ function closeModal(){
  modal.style.display="none";
 }
 
+const popupVersion = "1.0.1";
+
+if(
+ localStorage.getItem("popupVersion")
+ !== popupVersion
+){
+ document.getElementById(
+   "updatePopup"
+ ).style.display = "block";
+}
+
+function closeUpdatePopup(){
+
+ localStorage.setItem(
+   "popupVersion",
+   popupVersion
+ );
+
+ document.getElementById(
+   "updatePopup"
+ ).style.display = "none";
+}
+
 // 初期化
 updateTime();        // ←先に状態作る
 setFilter("all");    // ←ここで初回render
