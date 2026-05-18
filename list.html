@@ -2682,6 +2682,7 @@ const birdData = [
 {
  name:"コマドリ",
  level:1,
+ price:7,
  star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
@@ -3728,11 +3729,24 @@ function openModal(c){
  m_time.innerText="時間："+formatTime(c.time);
  const basePrice = c.price ?? 0;
 
- m_price1.innerText = `★1｜${basePrice || "-"}`;
- m_price2.innerText = `★2｜${basePrice ? Math.floor(basePrice * 1.5) : "-"}`;
- m_price3.innerText = `★3｜${basePrice ? basePrice * 2 : "-"}`;
- m_price4.innerText = `★4｜${basePrice ? basePrice * 4 : "-"}`;
- m_price5.innerText = `★5｜${basePrice ? basePrice * 8 : "-"}`;
+ // 野鳥だけ特殊計算
+ if(c.type === "bird"){
+  // 10単位切り上げ
+  const ceil10 = (num) =>
+    Math.ceil(num / 10) * 10;
+  m_price1.innerText =`★1｜${basePrice || "-"}`;
+  m_price2.innerText =`★2｜${basePrice ? ceil10(basePrice * 4) : "-"}`;
+  m_price3.innerText =`★3｜${basePrice ? ceil10(basePrice * 8) : "-"}`;
+  m_price4.innerText =`★4｜${basePrice ? ceil10(basePrice * 16) : "-"}`;
+  m_price5.innerText =`★5｜${basePrice ? ceil10(basePrice * 32) : "-"}`;
+ }else{
+  // 魚・虫
+  m_price1.innerText =`★1｜${basePrice || "-"}`;
+  m_price2.innerText =`★2｜${basePrice ? Math.floor(basePrice * 1.5) : "-"}`;
+  m_price3.innerText =`★3｜${basePrice ? Math.floor(basePrice * 2) : "-"}`;
+  m_price4.innerText =`★4｜${basePrice ? Math.floor(basePrice * 4) : "-"}`;
+  m_price5.innerText =`★5｜${basePrice ? Math.floor(basePrice * 8) : "-"}`;
+ }
  m_star5.innerHTML =
   c.star5
   ? `★5条件：<br>${c.star5}`
