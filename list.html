@@ -993,20 +993,15 @@ const fishData = [
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
  img:"fish/001.PNG",
- price:{
-   1:75,
-   2:112,
-   3:150,
-   4:300,
-   5:600
- }
+ price:75
 },
 {
  name:"ヨーロッパトノサマガエル",
  level:4,
+ shadow:"青",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"湖(青魚影)",
+ location:"湖",
  img:"fish/002.PNG"
 },
 {
@@ -1692,6 +1687,7 @@ const fishData = [
 {
  name:"ジンベエザメ(金魚影)",
  level:11,
+ shadow:"金",
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"海釣りクエスト",
@@ -3249,10 +3245,14 @@ if(currentSort === "unchecked"){
   </div>
 
  ${c.shadow ? `
-  <div class="shadow-badge">
-  ${c.shadow}
- </div>
-   ` : ""}
+  <div class="
+    shadow-badge
+    ${c.shadow === "金" ? "shadow-gold" : ""}
+    ${c.shadow === "青" ? "shadow-blue" : ""}
+  ">
+    ${c.shadow}
+  </div>
+` : ""}
 
   <button class="
     check-btn
@@ -3443,11 +3443,13 @@ function openModal(c){
  m_loc.innerText=c.location;
  m_weather.innerText="天気："+formatWeather(c.weather);
  m_time.innerText="時間："+formatTime(c.time);
- m_price1.innerText = `★1｜${c.price?.[1] ?? "-"}`;
- m_price2.innerText = `★2｜${c.price?.[2] ?? "-"}`;
- m_price3.innerText = `★3｜${c.price?.[3] ?? "-"}`;
- m_price4.innerText = `★4｜${c.price?.[4] ?? "-"}`;
- m_price5.innerText = `★5｜${c.price?.[5] ?? "-"}`;
+ const basePrice = c.price ?? 0;
+
+ m_price1.innerText = `★1｜${basePrice || "-"}`;
+ m_price2.innerText = `★2｜${basePrice ? Math.floor(basePrice * 1.5) : "-"}`;
+ m_price3.innerText = `★3｜${basePrice ? basePrice * 2 : "-"}`;
+ m_price4.innerText = `★4｜${basePrice ? basePrice * 4 : "-"}`;
+ m_price5.innerText = `★5｜${basePrice ? basePrice * 8 : "-"}`;
  m_star5.innerHTML =
   c.star5
   ? `★5条件：<br>${c.star5}`
