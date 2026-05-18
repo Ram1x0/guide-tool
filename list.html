@@ -877,13 +877,13 @@ let checkedData =
 
 // 天気(毎日入力する) 
 const weatherData = {
- "2026-05-16": {
+ "2026-05-18": {
    "6-12":"晴れ",
    "12-18":"晴れ",
-   "18-0":"雨",
-   "0-6":"雨"
+   "18-0":"晴れ",
+   "0-6":"晴れ"
  },
- "2026-05-17": {
+ "2026-05-19": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -1561,7 +1561,7 @@ const fishData = [
  img:"fish/082.PNG"
 },
 {
- name:"シュモクザメ",
+ name:"シュモクザメ(大魚影)",
  level:10,
  weather:["虹"],
  time:["18-0","0-6"],
@@ -1569,12 +1569,84 @@ const fishData = [
  img:"fish/083.PNG"
 },
 {
- name:"アオザメ",
+ name:"アオザメ(金魚影)",
  level:10,
  weather:["虹"],
  time:["6-12","12-18"],
- location:"海釣りクエスト(金魚影)",
+ location:"海釣りクエスト",
  img:"fish/084.PNG"
+},
+{
+ name:"アジアアロワナ(小魚影)",
+ level:11,
+ weather:["虹"],
+ time:["6-12","12-18","0-6"],
+ location:"草原の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"ライオンヘッド(中魚影)",
+ level:11,
+ weather:["虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"シマスズメダイ(中魚影)",
+ level:11,
+ weather:["晴れ","虹"],
+ time:["12-18","18-0"],
+ location:"そよ風の海",
+ img:"images/000.PNG"
+},
+{
+ name:"ジンベエザメ(金魚影)",
+ level:11,
+ weather:["晴れ","虹"],
+ time:["18-0","0-6"],
+ location:"海釣りクエスト",
+ img:"images/000.PNG"
+},
+{
+ name:"トウギョ(?)",
+ level:12,
+ weather:["雨","虹"],
+ time:["6-12","12-18"],
+ location:"温泉山-遺跡",
+ img:"images/000.PNG"
+},
+{
+ name:"テンニンイシダイ(?)",
+ level:12,
+ weather:["虹"],
+ time:["18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"シイラ(?)",
+ level:12,
+ weather:["虹"],
+ time:["6-12","12-18"],
+ location:"旧海",
+ img:"images/000.PNG"
+},
+{
+ name:"アオウミガメ(?)",
+ level:12,
+ weather:["虹"],
+ time:["12-18","18-0"],
+ location:"クジラ海",
+ img:"images/000.PNG"
+},
+{
+ name:"ミズクラゲ(?)",
+ level:12,
+ weather:["雨","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"海釣りクエスト",
+ img:"images/000.PNG"
 },
 {
  name:"積み木カクレクマノミ(青)",
@@ -2138,6 +2210,70 @@ const bugData = [
  img:"bugs/064.PNG"
 },
 {
+ name:"アレクサンドラトリバネアゲハ",
+ level:11,
+ weather:["晴れ","虹"],
+ time:["18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+}, 
+{
+ name:"アトラスオオカブト",
+ level:11,
+ weather:["虹"],
+ time:["18-0","0-6"],
+ location:"森林-不思議な松林",
+ img:"images/000.PNG"
+}, 
+{
+ name:"ジュウサンホシテントウ",
+ level:11,
+ weather:["虹"],
+ time:["12-18","18-0"],
+ location:"花畑-クジラ山",
+ img:"images/000.PNG"
+}, 
+{
+ name:"ハナカマキリ",
+ level:11,
+ weather:["雨","虹"],
+ time:["6-12","12-18"],
+ location:"温泉山-遺跡",
+ img:"images/000.PNG"
+}, 
+{
+ name:"ミイロタイマイ(?)",
+ level:12,
+ weather:["雨","虹"],
+ time:["6-12","18-0"],
+ location:"花畑-風車の花畑",
+ img:"images/000.PNG"
+},
+{
+ name:"ゴライアスオオツノハナムグリ(?)",
+ level:12,
+ weather:["虹"],
+ time:["18-0","0-6"],
+ location:"森林-コジカ塔",
+ img:"images/000.PNG"
+},
+{
+ name:"キマダラドクバッタ(?)",
+ level:12,
+ weather:["雨","虹"],
+ time:["6-12","12-18"],
+ location:"温泉山-温泉",
+ img:"images/000.PNG"
+},
+{
+ name:"アメイロトンボ(?)",
+ level:12,
+ weather:["虹"],
+ time:["6-12","12-18"],
+ location:"草原の湖",
+ img:"images/000.PNG"
+},
+{
  name:"積み木アカイトトンボ(ピンク)",
  level:1,
  weather:["晴れ","雨","虹"],
@@ -2166,7 +2302,7 @@ const bugData = [
  level:1,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"森林森の島",
+ location:"森林-森の島",
  img:"bugs/1004.PNG"
 },
 {
@@ -2691,6 +2827,78 @@ const birdData = [
  img:"birds/063.PNG"
 }, 
 {
+ name:"コムクドリ",
+ level:11,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"花畑-風車の花畑",
+ img:"images/000.PNG"
+}, 
+{
+ name:"クロヒゲバト",
+ level:11,
+ weather:["晴れ","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"郊外",
+ img:"images/000.PNG"
+}, 
+{
+ name:"シロクジャク",
+ level:11,
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"巣ごもりクエスト(追加段階)",
+ img:"images/000.PNG"
+}, 
+{
+ name:"トモエガモ",
+ level:11,
+ weather:["虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山-火山湖",
+ img:"images/000.PNG"
+}, 
+{
+ name:"インカアジサシ",
+ level:11,
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"旧海",
+ img:"images/000.PNG"
+},
+{
+ name:"ニシツノメドリ(?)",
+ level:12,
+ weather:["晴れ","虹"],
+ time:["6-12","18-0","0-6"],
+ location:"クジラ海の海辺",
+ img:"images/000.PNG"
+},
+{
+ name:"フヨウチョウ(?)",
+ level:12,
+ weather:["虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"温泉山",
+ img:"images/000.PNG"
+},
+{
+ name:"アオアシカツオドリ(?)",
+ level:12,
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"そよ風の海",
+ img:"images/000.PNG"
+},
+{
+ name:"シロフクロウ(?)",
+ level:12,
+ weather:["晴れ","雨","虹"],
+ time:["12-18","18-0"],
+ location:"森林-不思議な松林",
+ img:"images/000.PNG"
+},
+{
  name:"積み木スズメ(ピンク)",
  level:1,
  weather:["晴れ","雨","虹"],
@@ -3149,7 +3357,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/16";
+  "最終更新 2026/05/18";
 </script>
 
 </body>
