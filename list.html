@@ -3113,9 +3113,16 @@ const searchInput = document.getElementById("search");
 const clearBtn = document.getElementById("clearBtn");
 
 // 入力時
+let searchTimer;
 searchInput.addEventListener("input", ()=>{
-  clearBtn.style.display = searchInput.value ? "block" : "none";
-  render();
+  clearBtn.style.display =
+    searchInput.value
+    ? "block"
+    : "none";
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{
+    render();
+  }, 180);
 });
 
 // ×ボタン
@@ -3373,9 +3380,6 @@ function setSort(type){
   document.getElementById("s_"+type).classList.add("active");
   render();
 }
-
-// 検索
-document.getElementById("search").addEventListener("input",render);
 
 // ダークモード
 const darkToggle = document.getElementById("darkToggle");
