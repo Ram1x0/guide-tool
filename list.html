@@ -950,10 +950,9 @@ text-align:center;
 
 <p style="font-size:12px; line-height:1.7;">
 
-・場所検索機能追加<br>
-・レベル範囲検索追加<br>
-・魚影表示追加(順次)<br>
-・野鳥★5条件追加(順次)
+・売価追加完了<br>
+・魚影表示追加完了<br>
+・野鳥★5条件追加完了
 
 </p>
 
@@ -966,7 +965,7 @@ OK
   
 <script>
 
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.1.1";
 
 let currentFilter="all";
 let currentSort = "book";
@@ -992,9 +991,9 @@ const weatherData = {
    "0-6":"晴れ"
  },
  "2026-05-19": {
-   "6-12":"晴れ",
+   "6-12":"流星雨",
    "12-18":"晴れ",
-   "18-0":"晴れ",
+   "18-0":"流星雨",
    "0-6":"晴れ"
  }
 };
@@ -3664,6 +3663,12 @@ function render(){
 
  let list = creatures.filter(c => {
 
+  // 流星雨は晴れ扱い
+  const weatherForCheck =
+   currentWeather === "流星雨"
+    ? "晴れ"
+    : currentWeather;
+   
   // 天気一致
   const weatherMatch =
     c.weather.length === ALL_WEATHER.length ||
@@ -4041,7 +4046,7 @@ levelMax.addEventListener(
   updateLevelRange
 );
 
-const popupVersion = "1.1.0";
+const popupVersion = "1.1.1";
 
 if(
  localStorage.getItem("popupVersion")
@@ -4078,7 +4083,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/18";
+  "最終更新 2026/05/19";
 </script>
 
 </body>
