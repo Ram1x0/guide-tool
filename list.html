@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=9">
 <link rel="manifest" href="./manifest.json">
 
-<title>はとぴ図鑑</title>
+<title>はとぴ図鑑｜Heartopia(ハートピアスローライフ)の魚・虫・野鳥の入手方検索ツール</title>
 <!-- OGP -->
 <meta property="og:title" content="はとぴ図鑑">
 <meta property="og:description" content="リアルタイムで出現している魚・虫・野鳥を確認できる非公式図鑑ツール">
@@ -783,6 +783,48 @@ body.dark .weather-next{
   line-height:1.5;
   margin-left:60px;
 }
+
+  /* 最小化 */
+.minimized .top-content{
+  display:none;
+}
+
+/* ボタン */
+#minimizeBtn{
+
+  border:none;
+
+  border-radius:999px;
+
+  width:32px;
+  height:32px;
+
+  font-size:18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #edf5ff 100%
+    );
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.08);
+
+  font-family:'Mochiy Pop One', sans-serif;
+}
+
+body.dark #minimizeBtn{
+
+  background:
+    linear-gradient(
+      180deg,
+      #334155 0%,
+      #1e293b 100%
+    );
+
+  color:white;
+}
 </style>
 </head>
 
@@ -797,16 +839,21 @@ body.dark .weather-next{
 
 </div>
 
-<div class="card sticky">
+<div class="card sticky" id="topPanel">
+<div style="text-align:right; margin-bottom:8px;">
+  <button id="minimizeBtn">－</button>
+</div>
+<div class="top-content">
   <div id="time" class="time"></div>
   <div class="weather-wrap">
   <div id="weatherNow" class="weather-now"></div>
   <div id="weatherNext" class="weather-next"></div>
 </div>
-
 <div style="position:relative;">
   <input type="text" id="search" class="search" placeholder="🔍 名前・場所で検索">
   <button id="clearBtn">×</button>
+</div>
+</div>
 </div>
 
   <div class="filter">
@@ -4068,6 +4115,38 @@ function closeUpdatePopup(){
    "updatePopup"
  ).style.display = "none";
 }
+
+const topPanel =
+  document.getElementById("topPanel");
+
+const minimizeBtn =
+  document.getElementById("minimizeBtn");
+
+// 保存読み込み
+if(localStorage.getItem("topMinimized") === "true"){
+
+  topPanel.classList.add("minimized");
+  minimizeBtn.textContent = "＋";
+}
+
+// ボタン
+minimizeBtn.onclick = ()=>{
+
+  topPanel.classList.toggle("minimized");
+
+  const minimized =
+    topPanel.classList.contains("minimized");
+
+  minimizeBtn.textContent =
+    minimized
+    ? "＋"
+    : "－";
+
+  localStorage.setItem(
+    "topMinimized",
+    minimized
+  );
+};
 
 // 初期化
 updateTime();        // ←先に状態作る
