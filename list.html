@@ -3672,7 +3672,7 @@ function render(){
   // 天気一致
   const weatherMatch =
     c.weather.length === ALL_WEATHER.length ||
-    c.weather.includes(currentWeather);
+    c.weather.includes(weatherForCheck);
 
   // 時間一致
   const timeMatch =
