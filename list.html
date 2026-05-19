@@ -837,7 +837,7 @@ body.dark .weather-next{
     margin-bottom:6px;
   ">
     <span>レベル範囲</span>
-    <span id="levelRangeText">Lv.1〜14</span>
+    <span id="levelRangeText">Lv.1〜11</span>
   </div>
 
   <input
@@ -853,7 +853,7 @@ body.dark .weather-next{
     id="levelMax"
     min="1"
     max="14"
-    value="14"
+    value="11"
     style="width:100%; margin-top:6px;"
   >
 </div>
@@ -978,7 +978,7 @@ let currentZone="";
 let currentWeather="";
 
 let minLevel = 1;
-let maxLevel = 14;
+let maxLevel = 11;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
@@ -1927,6 +1927,42 @@ const fishData = [
  img:"images/000.PNG"
 },
 {
+ name:"スジクロハギ(?)",
+ level:13,
+ shadow:"中",
+ weather:["雨","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"旧海",
+ img:"images/000.PNG"
+},
+{
+ name:"ミノカサゴ(?)",
+ level:13,
+ shadow:"中",
+ weather:["雨","虹"],
+ time:["6-12","0-6"],
+ location:"クジラ海",
+ img:"images/000.PNG"
+},
+{
+ name:"ロイヤルデムワーゼル(?)",
+ level:14,
+ shadow:"小",
+ weather:["晴れ","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"東海",
+ img:"images/000.PNG"
+},
+{
+ name:"レナーズラス(?)",
+ level:14,
+ shadow:"中",
+ weather:["晴れ","虹"],
+ time:["12-18","18-0"],
+ location:"そよ風の海",
+ img:"images/000.PNG"
+},
+{
  name:"積み木カクレクマノミ(青)",
  level:1,
  shadow:"小",
@@ -2623,6 +2659,38 @@ const bugData = [
  weather:["虹"],
  time:["6-12","12-18"],
  location:"草原の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"デイダミアモルフォ(?)",
+ level:13,
+ weather:["虹"],
+ time:["12-18","18-0"],
+ location:"温泉山-火山湖",
+ img:"images/000.PNG"
+},
+{
+ name:"ミドリカワトンボ(?)",
+ level:13,
+ weather:["雨","虹"],
+ time:["12-18","18-0"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"ツマジロスカシマダラ(?)",
+ level:14,
+ weather:["雨","虹"],
+ time:["12-18","18-0"],
+ location:"花畑-クジラ山",
+ img:"images/000.PNG"
+},
+{
+ name:"ミドリパプア(?)",
+ level:14,
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林-森の島",
  img:"images/000.PNG"
 },
 {
@@ -3351,7 +3419,7 @@ const birdData = [
  star5:"虹 / 6〜18",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"旧海",
+ location:"旧海の海辺",
  img:"images/000.PNG"
 },
 {
@@ -3378,7 +3446,7 @@ const birdData = [
  star5:"虹 / 12〜18",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"そよ風の海",
+ location:"そよ風の海の海辺",
  img:"images/000.PNG"
 },
 {
@@ -3388,6 +3456,51 @@ const birdData = [
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0"],
  location:"森林-不思議な松林",
+ img:"images/000.PNG"
+},
+{
+ name:"オオハクチョウ(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"コクチョウ(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"クロクジャク(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"巣ごもりクエスト(追加段階)",
+ img:"images/000.PNG"
+},
+{
+ name:"ナベコウ(?)",
+ level:14,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"草原の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"メガネフクロウ(?)",
+ level:14,
+ star5:"虹 / 6〜12",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","0-6"],
+ location:"森林-ジャンプステージ",
  img:"images/000.PNG"
 },
 {
