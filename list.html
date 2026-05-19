@@ -300,25 +300,6 @@ body.dark h1{
       rgba(255,255,255,0.95) 0%,
       rgba(255,255,255,0.88) 100%
     );
-
-  border-radius:18px;
-  padding:10px;
-  backdrop-filter:blur(10px);
-
-  transition:
-    max-height .25s ease,
-    padding .25s ease,
-    opacity .25s ease;
-
-  overflow:hidden;
-
-  max-height:1000px;
-}
-
-/* 最小化時 */
-.sticky.minimized{
-  max-height:52px;
-  padding-bottom:6px;
 }
 
 /* 天気 */
@@ -877,8 +858,6 @@ body.dark #minimizeBtn{
   <input type="text" id="search" class="search" placeholder="🔍 名前・場所で検索">
   <button id="clearBtn">×</button>
 </div>
-</div>
-</div>
 
   <div class="filter">
     <button onclick="setFilter('all')" id="f_all">全部</button>
@@ -928,7 +907,9 @@ body.dark #minimizeBtn{
     style="width:100%; margin-top:6px;"
   >
 </div>
-
+</div>
+</div>
+  
 </div>
 
   <div id="list" class="grid"></div>
