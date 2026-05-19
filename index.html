@@ -447,6 +447,26 @@ body.dark .weather-next{
     );
 }
 
+  .shadow-gold{
+  background:
+    linear-gradient(
+      180deg,
+      #ffe27a 0%,
+      #ffb700 100%
+    );    
+  color:#5c4300;
+}
+
+.shadow-blue{
+  background:
+    linear-gradient(
+      180deg,
+      #6fdcff 0%,
+      #2196f3 100%
+    );
+  color:white;
+}
+
 /* チェックボタン */
 .check-btn{
 
@@ -817,7 +837,7 @@ body.dark .weather-next{
     margin-bottom:6px;
   ">
     <span>レベル範囲</span>
-    <span id="levelRangeText">Lv.1〜14</span>
+    <span id="levelRangeText">Lv.1〜11</span>
   </div>
 
   <input
@@ -833,7 +853,7 @@ body.dark .weather-next{
     id="levelMax"
     min="1"
     max="14"
-    value="14"
+    value="11"
     style="width:100%; margin-top:6px;"
   >
 </div>
@@ -930,10 +950,9 @@ text-align:center;
 
 <p style="font-size:12px; line-height:1.7;">
 
-・場所検索機能追加<br>
-・レベル範囲検索追加<br>
-・魚影表示追加(順次)<br>
-・野鳥★5条件追加(順次)
+・売価追加完了<br>
+・魚影表示追加完了<br>
+・野鳥★5条件追加完了
 
 </p>
 
@@ -946,7 +965,7 @@ OK
   
 <script>
 
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.1.1";
 
 let currentFilter="all";
 let currentSort = "book";
@@ -958,14 +977,14 @@ let currentZone="";
 let currentWeather="";
 
 let minLevel = 1;
-let maxLevel = 14;
+let maxLevel = 11;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
 
 // 天気(毎日入力する) 
 const weatherData = {
- "2026-05-18": {
+ "2026-05-20": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -974,7 +993,7 @@ const weatherData = {
  "2026-05-19": {
    "6-12":"晴れ",
    "12-18":"晴れ",
-   "18-0":"晴れ",
+   "18-0":"流星雨",
    "0-6":"晴れ"
  }
 };
@@ -988,30 +1007,28 @@ const fishData = [
 {
  name:"ヨーロピアンパーチ",
  level:1,
- shadow:"小",
+ shadow:"中",
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
- img:"fish/001.PNG",
- price:{
-   1:75,
-   2:112,
-   3:150,
-   4:300,
-   5:600
- }
+ img:"fish/001.PNG"
 },
 {
  name:"ヨーロッパトノサマガエル",
  level:4,
+ shadow:"青",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"湖(青魚影)",
+ location:"湖",
  img:"fish/002.PNG"
 },
 {
  name:"チャブ",
  level:1,
+ shadow:"中",
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"湖",
@@ -1020,6 +1037,8 @@ const fishData = [
 {
  name:"シマドジョウ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巨木の川",
@@ -1028,6 +1047,8 @@ const fishData = [
 {
  name:"バーベル",
  level:1,
+ shadow:"中",
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"浅水川",
@@ -1036,6 +1057,8 @@ const fishData = [
 {
  name:"ダヌープストレバー",
  level:1,
+ shadow:"中",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"霞川",
@@ -1044,6 +1067,8 @@ const fishData = [
 {
  name:"ミノー",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"静川",
@@ -1052,6 +1077,8 @@ const fishData = [
 {
  name:"ティラピア",
  level:4,
+ shadow:"青",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川(青魚影)",
@@ -1060,6 +1087,8 @@ const fishData = [
 {
  name:"テンチ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖",
@@ -1068,6 +1097,8 @@ const fishData = [
 {
  name:"ホワイトフィッシュ",
  level:1,
+ shadow:"中",
+ price:105,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
@@ -1076,6 +1107,8 @@ const fishData = [
 {
  name:"マブナ",
  level:1,
+ shadow:"中",
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1084,6 +1117,8 @@ const fishData = [
 {
  name:"ブリーク",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"湖",
@@ -1092,6 +1127,8 @@ const fishData = [
 {
  name:"シュナイダー",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1100,6 +1137,8 @@ const fishData = [
 {
  name:"コウライエビ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
@@ -1108,6 +1147,8 @@ const fishData = [
 {
  name:"ニシイワシ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海",
@@ -1116,6 +1157,8 @@ const fishData = [
 {
  name:"スズキ",
  level:1,
+ shadow:"中",
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海",
@@ -1124,6 +1167,8 @@ const fishData = [
 {
  name:"カツオ",
  level:1,
+ shadow:"大",
+ price:210,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海",
@@ -1132,6 +1177,8 @@ const fishData = [
 {
  name:"タチウオ",
  level:1,
+ shadow:"大",
+ price:105,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"そよ風の海",
@@ -1140,6 +1187,8 @@ const fishData = [
 {
  name:"ウミエビ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1148,6 +1197,8 @@ const fishData = [
 {
  name:"マアジ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"クジラ海",
@@ -1156,6 +1207,8 @@ const fishData = [
 {
  name:"カイブツギンザメ",
  level:4,
+ shadow:"青",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海(青魚影)",
@@ -1164,6 +1217,8 @@ const fishData = [
 {
  name:"ウミトゲウオ",
  level:1,
+ shadow:"小",
+ price:50,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"旧海",
@@ -1172,6 +1227,8 @@ const fishData = [
 {
  name:"ストライプトレッドマレット",
  level:1,
+ shadow:"金",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1180,6 +1237,8 @@ const fishData = [
 {
  name:"イシドジョウ",
  level:2,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1188,6 +1247,8 @@ const fishData = [
 {
  name:"マッドサンフィッシュ",
  level:2,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0"],
  location:"森の湖",
@@ -1196,6 +1257,8 @@ const fishData = [
 {
  name:"キュウリウオ",
  level:2,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"草原の湖",
@@ -1204,6 +1267,8 @@ const fishData = [
 {
  name:"ラッフ",
  level:2,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0"],
  location:"温泉山の湖",
@@ -1212,6 +1277,8 @@ const fishData = [
 {
  name:"フランスアジ",
  level:2,
+ shadow:"中",
+ price:155,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"そよ風の海",
@@ -1220,6 +1287,8 @@ const fishData = [
 {
  name:"タツノオトシゴ",
  level:2,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","0-6"],
  location:"クジラ海",
@@ -1228,6 +1297,8 @@ const fishData = [
 {
  name:"アンコウ",
  level:2,
+ shadow:"金",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1236,6 +1307,8 @@ const fishData = [
 {
  name:"イガイ",
  level:3,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1244,6 +1317,8 @@ const fishData = [
 {
  name:"パイクパーチ",
  level:3,
+ shadow:"中",
+ price:230,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巨木の川",
@@ -1252,6 +1327,8 @@ const fishData = [
 {
  name:"オタマジャクシ",
  level:3,
+ shadow:"小",
+ price:100,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
@@ -1260,6 +1337,8 @@ const fishData = [
 {
  name:"北欧アカザエビ",
  level:3,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","18-0","0-6"],
  location:"森の湖",
@@ -1268,6 +1347,8 @@ const fishData = [
 {
  name:"マダコ", 
  level:4,
+ shadow:"金",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1276,6 +1357,8 @@ const fishData = [
 {
  name:"タイセイヨウサケ",
  level:3,
+ shadow:"中",
+ price:155,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"クジラ海",
@@ -1284,6 +1367,8 @@ const fishData = [
 {
  name:"ピグミータコ",
  level:1,
+ shadow:"小",
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"そよ風の海",
@@ -1292,6 +1377,8 @@ const fishData = [
 {
  name:"ヤドカリ",
  level:3,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1300,6 +1387,8 @@ const fishData = [
 {
  name:"カクレクマノミ",
  level:3,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"旧海",
@@ -1308,6 +1397,8 @@ const fishData = [
 {
  name:"オオクチバス",
  level:4,
+ shadow:"中",
+ price:230,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖",
@@ -1316,6 +1407,8 @@ const fishData = [
 {
  name:"ヨーロッパコイ",
  level:4,
+ shadow:"中",
+ price:230,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"霞川",
@@ -1324,6 +1417,8 @@ const fishData = [
 {
  name:"カワメンタイ",
  level:4,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0"],
  location:"静川",
@@ -1332,6 +1427,8 @@ const fishData = [
 {
  name:"ハゼ",
  level:4,
+ shadow:"小",
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18"],
  location:"東海",
@@ -1340,6 +1437,8 @@ const fishData = [
 {
  name:"サワガニ",
  level:4,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1348,6 +1447,8 @@ const fishData = [
 {
  name:"イシビラメ",
  level:3,
+ shadow:"金",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1356,6 +1457,8 @@ const fishData = [
 {
  name:"ヨーロッパヒラメ",
  level:4,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["18-0","0-6"],
  location:"旧海",
@@ -1364,6 +1467,8 @@ const fishData = [
 {
  name:"レッドベリーピラニア",
  level:4,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巨木の川",
@@ -1372,6 +1477,8 @@ const fishData = [
 {
  name:"バタフライコイ",
  level:4,
+ shadow:"大",
+ price:320,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"草原の湖",
@@ -1380,6 +1487,8 @@ const fishData = [
 {
  name:"カワギンポ",
  level:5,
+ shadow:"小",
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"霞川",
@@ -1388,6 +1497,8 @@ const fishData = [
 {
  name:"マス",
  level:5,
+ shadow:"中",
+ price:230,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"草原の湖",
@@ -1396,6 +1507,8 @@ const fishData = [
 {
  name:"ラッド",
  level:5,
+ shadow:"小",
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1404,6 +1517,8 @@ const fishData = [
 {
  name:"タイセイヨウサバ",
  level:5,
+ shadow:"小",
+ price:150,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"クジラ海",
@@ -1412,6 +1527,8 @@ const fishData = [
 {
  name:"ヨーロッパロブスター",
  level:5,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["18-0","0-6"],
  location:"そよ風の海",
@@ -1420,6 +1537,8 @@ const fishData = [
 {
  name:"ヨーロッパスルメイカ",
  level:5,
+ shadow:"金",
+ price:320,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1428,6 +1547,8 @@ const fishData = [
 {
  name:"シンジュガイ",
  level:6,
+ shadow:"中",
+ price:380,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖",
@@ -1436,6 +1557,8 @@ const fishData = [
 {
  name:"フグ",
  level:6,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0"],
  location:"旧海",
@@ -1444,6 +1567,8 @@ const fishData = [
 {
  name:"シロザケ",
  level:6,
+ shadow:"小",
+ price:150,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"静川",
@@ -1452,6 +1577,8 @@ const fishData = [
 {
  name:"カワヒメマス",
  level:6,
+ shadow:"中",
+ price:230,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1460,6 +1587,8 @@ const fishData = [
 {
  name:"タブ・ガーナード",
  level:6,
+ shadow:"中",
+ price:380,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1468,6 +1597,8 @@ const fishData = [
 {
  name:"ネコザメ",
  level:6,
+ shadow:"金",
+ price:535,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1476,6 +1607,8 @@ const fishData = [
 {
  name:"イトヨ",
  level:7,
+ shadow:"小",
+ price:150,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"浅水川",
@@ -1484,6 +1617,8 @@ const fishData = [
 {
  name:"アプロケイルス",
  level:7,
+ shadow:"小",
+ price:150,
  weather:["晴れ","虹"],
  time:["12-18","18-0","0-6"],
  location:"郊外の湖",
@@ -1492,6 +1627,8 @@ const fishData = [
 {
  name:"カジカ",
  level:7,
+ shadow:"小",
+ price:150,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0"],
  location:"温泉山の湖",
@@ -1500,6 +1637,8 @@ const fishData = [
 {
  name:"リュウグウノツカイ",
  level:7,
+ shadow:"金",
+ price:535,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18"],
  location:"海釣りクエスト(金魚影)",
@@ -1508,6 +1647,8 @@ const fishData = [
 {
  name:"スペインダイ",
  level:7,
+ shadow:"中",
+ price:230,
  weather:["雨","虹"],
  time:["18-0","0-6"],
  location:"そよ風の海",
@@ -1516,6 +1657,8 @@ const fishData = [
 {
  name:"ヨーロッパウナギ",
  level:7,
+ shadow:"中",
+ price:380,
  weather:["虹"],
  time:["6-12","12-18","18-0"],
  location:"旧海",
@@ -1524,6 +1667,8 @@ const fishData = [
 {
  name:"黄金タラバガニ",
  level:8,
+ shadow:"金",
+ price:850,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1532,6 +1677,8 @@ const fishData = [
 {
  name:"マッドミノー",
  level:8,
+ shadow:"小",
+ price:250,
  weather:["晴れ","虹"],
  time:["6-12","0-6"],
  location:"郊外の湖",
@@ -1540,6 +1687,8 @@ const fishData = [
 {
  name:"北欧ブルーアカザエビ",
  level:8,
+ shadow:"小",
+ price:250,
  weather:["晴れ","雨","虹"],
  time:["18-0","0-6"],
  location:"森の湖",
@@ -1548,6 +1697,8 @@ const fishData = [
 {
  name:"キンギョ",
  level:8,
+ shadow:"小",
+ price:250,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0"],
  location:"草原の湖",
@@ -1556,6 +1707,8 @@ const fishData = [
 {
  name:"タラバガニ",
  level:8,
+ shadow:"大",
+ price:535,
  weather:["虹"],
  time:["6-12","12-18","18-0"],
  location:"クジラ海",
@@ -1564,6 +1717,8 @@ const fishData = [
 {
  name:"モンツキダラ",
  level:8,
+ shadow:"中",
+ price:230,
  weather:["晴れ","虹"],
  time:["12-18","18-0","0-6"],
  location:"東海",
@@ -1572,6 +1727,8 @@ const fishData = [
 {
  name:"ノーザンパイク",
  level:9,
+ shadow:"中",
+ price:610,
  weather:["雨","虹"],
  time:["18-0","0-6"],
  location:"郊外の湖",
@@ -1580,6 +1737,8 @@ const fishData = [
 {
  name:"パンプキンシード",
  level:9,
+ shadow:"小",
+ price:250,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0"],
  location:"温泉山の湖",
@@ -1588,6 +1747,8 @@ const fishData = [
 {
  name:"ドナウイトウ",
  level:9,
+ shadow:"中",
+ price:380,
  weather:["虹"],
  time:["12-18","18-0","0-6"],
  location:"巨木の川",
@@ -1596,6 +1757,8 @@ const fishData = [
 {
  name:"ミナミマグロ",
  level:9,
+ shadow:"大",
+ price:850,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"そよ風の海",
@@ -1604,6 +1767,8 @@ const fishData = [
 {
  name:"マンボウ",
  level:9,
+ shadow:"大",
+ price:850,
  weather:["晴れ","雨","虹"],
  time:["6-12","0-6"],
  location:"東海",
@@ -1612,6 +1777,8 @@ const fishData = [
 {
  name:"アカマンボウ",
  level:9,
+ shadow:"大",
+ price:850,
  weather:["晴れ","雨","虹"],
  time:["18-0","0-6"],
  location:"海釣りクエスト(金魚影)",
@@ -1620,6 +1787,8 @@ const fishData = [
 {
  name:"ヨーロッパナマズ",
  level:10,
+ shadow:"中",
+ price:610,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"草原の湖",
@@ -1628,6 +1797,8 @@ const fishData = [
 {
  name:"ブルーギル",
  level:10,
+ shadow:"小",
+ price:395,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"温泉山の湖",
@@ -1636,6 +1807,8 @@ const fishData = [
 {
  name:"ホッキョクイワナ",
  level:10,
+ shadow:"中",
+ price:610,
  weather:["雨","虹"],
  time:["12-18","18-0"],
  location:"森の湖",
@@ -1644,54 +1817,64 @@ const fishData = [
 {
  name:"メカジキ",
  level:10,
+ shadow:"大",
+ price:850,
  weather:["虹"],
  time:["12-18","18-0"],
  location:"クジラ海",
  img:"fish/082.PNG"
 },
 {
- name:"シュモクザメ(大魚影)",
+ name:"シュモクザメ",
  level:10,
+ shadow:"大",
+ price:850,
  weather:["虹"],
  time:["18-0","0-6"],
  location:"旧海",
  img:"fish/083.PNG"
 },
 {
- name:"アオザメ(金魚影)",
+ name:"アオザメ",
  level:10,
+ shadow:"金",
+ price:850,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"海釣りクエスト",
  img:"fish/084.PNG"
 },
 {
- name:"アジアアロワナ(小魚影)",
+ name:"アジアアロワナ",
  level:11,
+ shadow:"小",
  weather:["虹"],
  time:["6-12","12-18","0-6"],
  location:"草原の湖",
  img:"images/000.PNG"
 },
 {
- name:"ライオンヘッド(中魚影)",
+ name:"ライオンヘッド",
  level:11,
+ shadow:"中",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
  img:"images/000.PNG"
 },
 {
- name:"シマスズメダイ(中魚影)",
+ name:"シマスズメダイ",
  level:11,
+ shadow:"中",
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"そよ風の海",
  img:"images/000.PNG"
 },
 {
- name:"ジンベエザメ(金魚影)",
+ name:"ジンベエザメ",
  level:11,
+ shadow:"金",
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"海釣りクエスト",
@@ -1700,6 +1883,7 @@ const fishData = [
 {
  name:"トウギョ(?)",
  level:12,
+ shadow:"小",
  weather:["雨","虹"],
  time:["6-12","12-18"],
  location:"温泉山-遺跡",
@@ -1708,6 +1892,7 @@ const fishData = [
 {
  name:"テンニンイシダイ(?)",
  level:12,
+ shadow:"中",
  weather:["虹"],
  time:["18-0","0-6"],
  location:"郊外の湖",
@@ -1716,6 +1901,7 @@ const fishData = [
 {
  name:"シイラ(?)",
  level:12,
+ shadow:"大",
  weather:["虹"],
  time:["6-12","12-18"],
  location:"旧海",
@@ -1724,6 +1910,7 @@ const fishData = [
 {
  name:"アオウミガメ(?)",
  level:12,
+ shadow:"大",
  weather:["虹"],
  time:["12-18","18-0"],
  location:"クジラ海",
@@ -1732,14 +1919,53 @@ const fishData = [
 {
  name:"ミズクラゲ(?)",
  level:12,
+ shadow:"金",
  weather:["雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"海釣りクエスト",
  img:"images/000.PNG"
 },
 {
+ name:"スジクロハギ(?)",
+ level:13,
+ shadow:"中",
+ weather:["雨","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"旧海",
+ img:"images/000.PNG"
+},
+{
+ name:"ミノカサゴ(?)",
+ level:13,
+ shadow:"中",
+ weather:["雨","虹"],
+ time:["6-12","0-6"],
+ location:"クジラ海",
+ img:"images/000.PNG"
+},
+{
+ name:"ロイヤルデムワーゼル(?)",
+ level:14,
+ shadow:"小",
+ weather:["晴れ","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"東海",
+ img:"images/000.PNG"
+},
+{
+ name:"レナーズラス(?)",
+ level:14,
+ shadow:"中",
+ weather:["晴れ","虹"],
+ time:["12-18","18-0"],
+ location:"そよ風の海",
+ img:"images/000.PNG"
+},
+{
  name:"積み木カクレクマノミ(青)",
  level:1,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1748,6 +1974,8 @@ const fishData = [
 {
  name:"積み木カクレクマノミ(赤)",
  level:1,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1756,6 +1984,8 @@ const fishData = [
 {
  name:"積み木カクレクマノミ(青緑)",
  level:1,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1764,6 +1994,8 @@ const fishData = [
 {
  name:"積み木カクレクマノミ(紫)",
  level:1,
+ shadow:"小",
+ price:100,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1772,6 +2004,8 @@ const fishData = [
 {
  name:"積み木カクレクマノミ(虹)",
  level:1,
+ shadow:"小",
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海",
@@ -1789,6 +2023,7 @@ const bugData = [
 {
  name:"キアゲハ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林",
@@ -1797,6 +2032,7 @@ const bugData = [
 {
  name:"クモマツマキチョウ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -1805,6 +2041,7 @@ const bugData = [
 {
  name:"ヤマキチョウ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -1813,6 +2050,7 @@ const bugData = [
 {
  name:"モンシロチョウ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村",
@@ -1821,6 +2059,7 @@ const bugData = [
 {
  name:"アポロウスバシロチョウ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
@@ -1829,6 +2068,7 @@ const bugData = [
 {
  name:"ベニモンアゲハ",
  level:1,
+ price:30,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
@@ -1837,6 +2077,7 @@ const bugData = [
 {
  name:"スルコウスキーモルフォ",
  level:1,
+ price:90,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"エアーミツバチ虫寄せ装置",
@@ -1845,6 +2086,7 @@ const bugData = [
 {
  name:"アスバラカズハムシ", 
  level:1,
+ price:55,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑",
@@ -1853,6 +2095,7 @@ const bugData = [
 {
  name:"クリソクラオン",
  level:1,
+ price:45,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山",
@@ -1861,6 +2104,7 @@ const bugData = [
 {
  name:"コバネアカホシカメムシ",
  level:1,
+ price:35,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"ホーム",
@@ -1869,6 +2113,7 @@ const bugData = [
 {
  name:"アカイトトンボ",
  level:1,
+ price:35,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"水辺",
@@ -1877,6 +2122,7 @@ const bugData = [
 {
  name:"イカルスヒメシジミ",
  level:2,
+ price:105,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -1885,6 +2131,7 @@ const bugData = [
 {
  name:"ミドリニワハンミョウ",
  level:2,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山",
@@ -1893,6 +2140,7 @@ const bugData = [
 {
  name:"コウホウトラカミキリ",
  level:2,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林",
@@ -1901,6 +2149,7 @@ const bugData = [
 {
  name:"アオホシハナムグリ",
  level:2,
+ price:165,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"ホーム",
@@ -1909,6 +2158,7 @@ const bugData = [
 {
  name:"シベリアヒナバッタ",
  level:2,
+ price:90,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村",
@@ -1917,6 +2167,7 @@ const bugData = [
 {
  name:"ナナホシテントウ",
  level:2,
+ price:110,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -1925,6 +2176,7 @@ const bugData = [
 {
  name:"ヨツボシトンボ",
  level:2,
+ price:75,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖畔",
@@ -1933,6 +2185,7 @@ const bugData = [
 {
  name:"クマバチ",
  level:2,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑",
@@ -1941,6 +2194,7 @@ const bugData = [
 {
  name:"イリスコムラサキ",
  level:3,
+ price:90,
  weather:["晴れ","虹"],
  time:["12-18","18-0","0-6"],
  location:"花畑-クジラ山",
@@ -1949,6 +2203,7 @@ const bugData = [
 {
  name:"アカエリトリバネアゲハ",
  level:3,
+ price:90,
  weather:["晴れ","雨","虹"],
  time:["6-12","18-0","0-6"],
  location:"ホーム",
@@ -1957,6 +2212,7 @@ const bugData = [
 {
  name:"ヒメオナガミズアオ",
  level:3,
+ price:105,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0"],
  location:"郊外",
@@ -1965,6 +2221,7 @@ const bugData = [
 {
  name:"アカハネムシ",
  level:3,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-温泉",
@@ -1973,6 +2230,7 @@ const bugData = [
 {
  name:"ピンクタイワンクツワムシ",
  level:3,
+ price:90,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
@@ -1981,6 +2239,7 @@ const bugData = [
 {
  name:"キリギリス",
  level:3,
+ price:180,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-パープルビーチ",
@@ -1989,6 +2248,7 @@ const bugData = [
 {
  name:"シロマダラオバチ",
  level:3,
+ price:165,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0"],
  location:"森林-コジカ塔",
@@ -1997,6 +2257,7 @@ const bugData = [
 {
  name:"アリ",
  level:3,
+ price:220,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-漁村広場",
@@ -2005,6 +2266,7 @@ const bugData = [
 {
  name:"ツマグロヒョウモン",
  level:4,
+ price:90,
  weather:["雨","虹"],
  time:["6-12","18-0","0-6"],
  location:"漁村-波止場",
@@ -2013,6 +2275,7 @@ const bugData = [
 {
  name:"アルキプテラフスカ",
  level:4,
+ price:140,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"郊外",
@@ -2021,6 +2284,7 @@ const bugData = [
 {
  name:"ヨツボシテントウ",
  level:4,
+ price:165,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-火山湖",
@@ -2029,6 +2293,7 @@ const bugData = [
 {
  name:"セミ",
  level:4,
+ price:220,
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"森林-不思議な松林",
@@ -2037,6 +2302,7 @@ const bugData = [
 {
  name:"シオカラトンボ",
  level:4,
+ price:75,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川辺",
@@ -2045,6 +2311,7 @@ const bugData = [
 {
  name:"ニジイロカマキリ",
  level:4,
+ price:195,
  weather:["晴れ","虹"],
  time:["12-18","18-0","0-6"],
  location:"温泉山-石海岸の崖",
@@ -2053,6 +2320,7 @@ const bugData = [
 {
  name:"クジャクチョウ",
  level:5,
+ price:90,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-風車の花畑",
@@ -2061,6 +2329,7 @@ const bugData = [
 {
  name:"キベリタテハ",
  level:5,
+ price:90,
  weather:["晴れ","虹"],
  time:["6-12","12-18","0-6"],
  location:"温泉山-温泉",
@@ -2069,6 +2338,7 @@ const bugData = [
 {
  name:"ナンベイオオヤガ",
  level:5,
+ price:90,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
@@ -2077,6 +2347,7 @@ const bugData = [
 {
  name:"タケウチトゲムネカミキリ",
  level:5,
+ price:165,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-森の島",
@@ -2085,6 +2356,7 @@ const bugData = [
 {
  name:"ナミテントウ",
  level:5,
+ price:165,
  weather:["雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"森林-コジカ塔",
@@ -2093,6 +2365,7 @@ const bugData = [
 {
  name:"パプアハラビロカマキリ",
  level:5,
+ price:390,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-遺跡",
@@ -2101,6 +2374,7 @@ const bugData = [
 {
  name:"ムラサキクマバチ",
  level:5,
+ price:165,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-クジラ山",
@@ -2109,6 +2383,7 @@ const bugData = [
 {
  name:"オオミドリトリバネアゲハ",
  level:6,
+ price:150,
  weather:["晴れ","雨","虹"],
  time:["18-0","0-6"],
  location:"郊外",
@@ -2117,6 +2392,7 @@ const bugData = [
 {
  name:"ミヤマクワガタ",
  level:6,
+ price:275,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0"],
  location:"森林-ジャンプステージ",
@@ -2125,6 +2401,7 @@ const bugData = [
 {
  name:"シルバージュエルコガネ",
  level:6,
+ price:165,
  weather:["晴れ","虹"],
  time:["6-12","12-18","0-6"],
  location:"温泉山-石海岸の崖",
@@ -2133,6 +2410,7 @@ const bugData = [
 {
  name:"ルリクチブトカメムシ",
  level:6,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18"],
  location:"漁村-灯台",
@@ -2141,6 +2419,7 @@ const bugData = [
 {
  name:"アオハダトンボ",
  level:6,
+ price:110,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖畔",
@@ -2149,6 +2428,7 @@ const bugData = [
 {
  name:"メネラウスモルフォ",
  level:7,
+ price:150,
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0"],
  location:"森林-不思議な松林",
@@ -2157,6 +2437,7 @@ const bugData = [
 {
  name:"アサギマダラ",
  level:7,
+ price:150,
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト",
@@ -2165,6 +2446,7 @@ const bugData = [
 {
  name:"ミノタウロスコガネ",
  level:7,
+ price:275,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","0-6"],
  location:"温泉山-遺跡",
@@ -2173,6 +2455,7 @@ const bugData = [
 {
  name:"ビューティースペキオーサ",
  level:7,
+ price:275,
  weather:["雨","虹"],
  time:["6-12","12-18"],
  location:"花畑-クジラ山",
@@ -2181,6 +2464,7 @@ const bugData = [
 {
  name:"ゴールドジュエルコガネ",
  level:7,
+ price:275,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"森林-ジャンプステージ",
@@ -2189,6 +2473,7 @@ const bugData = [
 {
  name:"ロサトンボ",
  level:7,
+ price:185,
  weather:["虹"],
  time:["12-18","18-0","0-6"],
  location:"温泉山の湖畔",
@@ -2197,6 +2482,7 @@ const bugData = [
 {
  name:"イザベラミズアオ",
  level:8,
+ price:150,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"森林-不思議な松林",
@@ -2205,6 +2491,7 @@ const bugData = [
 {
  name:"マダガスカルムーンモス",
  level:8,
+ price:240,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"郊外",
@@ -2213,6 +2500,7 @@ const bugData = [
 {
  name:"カブトムシ",
  level:8,
+ price:275,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"漁村-漁村東桟橋",
@@ -2221,6 +2509,7 @@ const bugData = [
 {
  name:"ピカソバグ",
  level:8,
+ price:185,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"花畑-パープルビーチ",
@@ -2229,6 +2518,7 @@ const bugData = [
 {
  name:"シンジュタテハ",
  level:9,
+ price:240,
  weather:["雨","虹"],
  time:["6-12","0-6"],
  location:"花畑-風車の花畑",
@@ -2237,6 +2527,7 @@ const bugData = [
 {
  name:"オウゴンオニクワガタ",
  level:9,
+ price:440,
  weather:["雨","虹"],
  time:["18-0","0-6"],
  location:"森林-不思議な松林",
@@ -2245,6 +2536,7 @@ const bugData = [
 {
  name:"ニジイロクワガタ",
  level:9,
+ price:440,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"虫コイコイクエスト-遺跡(追加段階)",
@@ -2253,6 +2545,7 @@ const bugData = [
 {
  name:"ヨウカイカマキリ",
  level:9,
+ price:515,
  weather:["雨","虹"],
  time:["12-18","18-0"],
  location:"温泉山-遺跡",
@@ -2261,6 +2554,7 @@ const bugData = [
 {
  name:"青いクマバチ",
  level:9,
+ price:440,
  weather:["虹"],
  time:["18-0","0-6"],
  location:"漁村-漁村広場",
@@ -2269,6 +2563,7 @@ const bugData = [
 {
  name:"ヘレナモルフォ",
  level:10,
+ price:240,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"花畑-パープルビーチ",
@@ -2277,6 +2572,7 @@ const bugData = [
 {
  name:"タイヨウモルフォ",
  level:10,
+ price:240,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"森林-コジカ塔",
@@ -2285,6 +2581,7 @@ const bugData = [
 {
  name:"ヘラクレスオオカブト",
  level:10,
+ price:440,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"温泉山-火山湖",
@@ -2293,6 +2590,7 @@ const bugData = [
 {
  name:"クロツヤミノガ",
  level:10,
+ price:440,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"森林-コジカ塔",
@@ -2363,8 +2661,41 @@ const bugData = [
  img:"images/000.PNG"
 },
 {
+ name:"デイダミアモルフォ(?)",
+ level:13,
+ weather:["虹"],
+ time:["12-18","18-0"],
+ location:"温泉山-火山湖",
+ img:"images/000.PNG"
+},
+{
+ name:"ミドリカワトンボ(?)",
+ level:13,
+ weather:["雨","虹"],
+ time:["12-18","18-0"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"ツマジロスカシマダラ(?)",
+ level:14,
+ weather:["雨","虹"],
+ time:["12-18","18-0"],
+ location:"花畑-クジラ山",
+ img:"images/000.PNG"
+},
+{
+ name:"ミドリパプア(?)",
+ level:14,
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"森林-森の島",
+ img:"images/000.PNG"
+},
+{
  name:"積み木アカイトトンボ(ピンク)",
  level:1,
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-ジャンプステージ",
@@ -2373,6 +2704,7 @@ const bugData = [
 {
  name:"積み木アカイトトンボ(黄)",
  level:1,
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-不思議な松林",
@@ -2381,6 +2713,7 @@ const bugData = [
 {
  name:"積み木アカイトトンボ(青)",
  level:1,
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-コジカ塔",
@@ -2389,6 +2722,7 @@ const bugData = [
 {
  name:"積み木アカイトトンボ(紫)",
  level:1,
+ price:75,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-森の島",
@@ -2397,6 +2731,7 @@ const bugData = [
 {
  name:"積み木アカイトトンボ(虹)",
  level:1,
+ price:110,
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"特殊積み木虫クエスト",
@@ -2414,7 +2749,8 @@ const birdData = [
 {
  name:"コマドリ",
  level:1,
- star5:"全天気 / 全時間",
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -2423,6 +2759,8 @@ const birdData = [
 {
  name:"シジュウカラ",
  level:1,
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山",
@@ -2431,6 +2769,8 @@ const birdData = [
 {
  name:"ミソサザイ",
  level:1,
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林",
@@ -2439,6 +2779,8 @@ const birdData = [
 {
  name:"ウソ",
  level:1,
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -2447,6 +2789,8 @@ const birdData = [
 {
  name:"ズアオアトリ",
  level:1,
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑",
@@ -2455,6 +2799,8 @@ const birdData = [
 {
  name:"ルリコンゴウインコ",
  level:1,
+ price:7,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト",
@@ -2463,6 +2809,8 @@ const birdData = [
 {
  name:"ヒメモリバト",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"中心街",
@@ -2471,6 +2819,8 @@ const birdData = [
 {
  name:"シラコバト",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"ホーム",
@@ -2479,6 +2829,8 @@ const birdData = [
 {
  name:"ソデグロバト",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村",
@@ -2487,6 +2839,8 @@ const birdData = [
 {
  name:"オオフラミンゴ",
  level:1,
+ price:15,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"水辺",
@@ -2495,6 +2849,8 @@ const birdData = [
 {
  name:"インドクジャク",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト",
@@ -2503,6 +2859,8 @@ const birdData = [
 {
  name:"マガモ",
  level:1,
+ price:12,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"湖",
@@ -2511,6 +2869,8 @@ const birdData = [
 {
  name:"エナガ",
  level:2,
+ price:2,
+ star5:"全天気 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"ブランクの頭上",
@@ -2519,6 +2879,8 @@ const birdData = [
 {
  name:"ゴジュウカラ",
  level:2,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村",
@@ -2527,6 +2889,8 @@ const birdData = [
 {
  name:"ヒゲガラ",
  level:2,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山",
@@ -2535,6 +2899,8 @@ const birdData = [
 {
  name:"ズアカモズ",
  level:2,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -2543,6 +2909,8 @@ const birdData = [
 {
  name:"ウォンガバト",
  level:2,
+ price:15,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林",
@@ -2551,6 +2919,8 @@ const birdData = [
 {
  name:"コアオバト",
  level:2,
+ price:15,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑",
@@ -2559,6 +2929,8 @@ const birdData = [
 {
  name:"ヒドリガモ",
  level:2,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
@@ -2567,6 +2939,8 @@ const birdData = [
 {
  name:"カモメ",
  level:2,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海辺",
@@ -2575,6 +2949,8 @@ const birdData = [
 {
  name:"ニシコウライウグイス",
  level:3,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"ホーム",
@@ -2583,6 +2959,8 @@ const birdData = [
 {
  name:"カノコスズメ",
  level:3,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-灯台",
@@ -2591,6 +2969,8 @@ const birdData = [
 {
  name:"シマエナガ",
  level:3,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-ジャンプステージ",
@@ -2599,6 +2979,8 @@ const birdData = [
 {
  name:"ベニコンゴウインコ",
  level:3,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト",
@@ -2607,6 +2989,8 @@ const birdData = [
 {
  name:"アカツクシガモ",
  level:3,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖街",
@@ -2614,7 +2998,9 @@ const birdData = [
 },
 {
  name:"ケワタガモ",
- level:1,
+ level:3,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"川",
@@ -2623,6 +3009,8 @@ const birdData = [
 {
  name:"オデュアンカモメ",
  level:3,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"クジラ海の海辺",
@@ -2631,6 +3019,8 @@ const birdData = [
 {
  name:"ヨーロッパヒメウ",
  level:3,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"海",
@@ -2639,6 +3029,8 @@ const birdData = [
 {
  name:"タイリクハクセキレイ",
  level:4,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-パープルビーチ",
@@ -2647,6 +3039,8 @@ const birdData = [
 {
  name:"ハイズキンダルマエナガ",
  level:4,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-漁村広場",
@@ -2655,6 +3049,8 @@ const birdData = [
 {
  name:"ギンザンマシコ",
  level:4,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-森の島",
@@ -2663,6 +3059,8 @@ const birdData = [
 {
  name:"フウチョウモドキ",
  level:4,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-不思議な松林",
@@ -2671,6 +3069,8 @@ const birdData = [
 {
  name:"キンミノヒメアオバト",
  level:4,
+ price:17,
+ star5:"雨・虹 /全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-風車の花畑",
@@ -2679,6 +3079,8 @@ const birdData = [
 {
  name:"ギンケイ",
  level:4,
+ price:17,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-遺跡",
@@ -2687,6 +3089,8 @@ const birdData = [
 {
  name:"ミコアイサ",
  level:4,
+ price:22,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖",
@@ -2695,6 +3099,8 @@ const birdData = [
 {
  name:"キバラメジロハエトリ",
  level:5,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-波止場",
@@ -2703,6 +3109,8 @@ const birdData = [
 {
  name:"ヨーロッパハチクイ",
  level:5,
+ price:22,
+ star5:"虹 / 6〜0",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖畔",
@@ -2711,6 +3119,8 @@ const birdData = [
 {
  name:"ヒワコンゴウインコ",
  level:5,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト",
@@ -2719,6 +3129,8 @@ const birdData = [
 {
  name:"オリーブバト",
  level:5,
+ price:27,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-温泉",
@@ -2727,6 +3139,8 @@ const birdData = [
 {
  name:"コフラミンゴ",
  level:5,
+ price:27,
+ star5:"虹 / 6〜0",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森の湖畔",
@@ -2735,6 +3149,8 @@ const birdData = [
 {
  name:"クロアジサシ",
  level:5,
+ price:22,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"旧海の海辺",
@@ -2743,6 +3159,8 @@ const birdData = [
 {
  name:"シメ",
  level:6,
+ price:15,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-火山湖",
@@ -2751,6 +3169,8 @@ const birdData = [
 {
  name:"キンムネバト",
  level:6,
+ price:27,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-漁村東桟橋",
@@ -2759,6 +3179,8 @@ const birdData = [
 {
  name:"チシマウガラス",
  level:6,
+ price:22,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"旧海・クジラ海",
@@ -2767,6 +3189,8 @@ const birdData = [
 {
  name:"トラフズク",
  level:6,
+ price:47,
+ star5:"虹 / 6〜12, 18〜0",
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-石海岸の崖",
@@ -2775,6 +3199,8 @@ const birdData = [
 {
  name:"ルリガラ",
  level:7,
+ price:22,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-風車の花畑",
@@ -2783,6 +3209,8 @@ const birdData = [
 {
  name:"スミレコンゴウインコ",
  level:7,
+ price:22,
+ star5:"虹 / 18〜0",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト",
@@ -2791,6 +3219,8 @@ const birdData = [
 {
  name:"ボタンバト",
  level:7,
+ price:27,
+ star5:"虹 / 6〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -2799,6 +3229,8 @@ const birdData = [
 {
  name:"アジサシ",
  level:7,
+ price:35,
+ star5:"虹 / 6〜18",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海の海辺",
@@ -2807,6 +3239,8 @@ const birdData = [
 {
  name:"チョウゲンボウ",
  level:7,
+ price:47,
+ star5:"虹 / 6〜0",
  weather:["晴れ","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-コジカ塔(木のてっぺん)",
@@ -2815,6 +3249,8 @@ const birdData = [
 {
  name:"ルリツグミ",
  level:8,
+ price:30,
+ star5:"虹 / 18〜0",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -2823,6 +3259,8 @@ const birdData = [
 {
  name:"ベニヒワ",
  level:8,
+ price:22,
+ star5:"虹 / 12〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-不思議な松林",
@@ -2831,6 +3269,8 @@ const birdData = [
 {
  name:"モモイロバト",
  level:8,
+ price:27,
+ star5:"虹 / 12〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-クジラ山",
@@ -2839,6 +3279,8 @@ const birdData = [
 {
  name:"ハヤブサ",
  level:8,
+ price:65,
+ star5:"虹 / 18〜0 (6〜12？)",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-温泉(崖の上)",
@@ -2847,6 +3289,8 @@ const birdData = [
 {
  name:"ナナイロフウキンチョウ",
  level:9,
+ price:30,
+ star5:"虹 / 18〜0",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外",
@@ -2855,6 +3299,8 @@ const birdData = [
 {
  name:"ベニイロフラミンゴ",
  level:9,
+ price:55,
+ star5:"虹 / 12〜18",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-パープルビーチ",
@@ -2863,6 +3309,8 @@ const birdData = [
 {
  name:"マクジャク",
  level:9,
+ price:37,
+ star5:"虹 / 12〜18 (18〜0？)",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト(追加段階)",
@@ -2871,6 +3319,8 @@ const birdData = [
 {
  name:"カオジロオタテガモ",
  level:9,
+ price:45,
+ star5:"虹 / 12〜18",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
@@ -2879,6 +3329,8 @@ const birdData = [
 {
  name:"インペリアルシャグ",
  level:9,
+ price:45,
+ star5:"虹 / 12〜18",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"東海・そよ風の海",
@@ -2887,6 +3339,8 @@ const birdData = [
 {
  name:"アゾレスウソ",
  level:10,
+ price:30,
+ star5:"虹 / 18〜0",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"漁村-灯台",
@@ -2895,6 +3349,8 @@ const birdData = [
 {
  name:"ロクショウヒタキ",
  level:10,
+ price:30,
+ star5:"虹 / 18〜0",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-ジャンプステージ",
@@ -2903,6 +3359,8 @@ const birdData = [
 {
  name:"アカアシチョウゲンボウ",
  level:10,
+ price:65,
+ star5:"虹 / 18〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-遺跡(崖の上)",
@@ -2911,6 +3369,8 @@ const birdData = [
 {
  name:"ワシミミズク",
  level:10,
+ price:65,
+ star5:"虹 / 18〜0",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"森林-コジカ塔(木のてっぺん)",
@@ -2919,7 +3379,7 @@ const birdData = [
 {
  name:"コムクドリ",
  level:11,
- star5:"虹 / 6〜18",
+ star5:"虹 / 18〜0",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"花畑-風車の花畑",
@@ -2928,6 +3388,7 @@ const birdData = [
 {
  name:"クロヒゲバト",
  level:11,
+ star5:"虹 / 12〜0",
  weather:["晴れ","虹"],
  time:["12-18","18-0","0-6"],
  location:"郊外",
@@ -2936,6 +3397,7 @@ const birdData = [
 {
  name:"シロクジャク",
  level:11,
+ star5:"虹 / 12〜18",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"巣ごもりクエスト(追加段階)",
@@ -2944,6 +3406,7 @@ const birdData = [
 {
  name:"トモエガモ",
  level:11,
+ star5:"虹 / 12〜18",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-火山湖",
@@ -2952,14 +3415,16 @@ const birdData = [
 {
  name:"インカアジサシ",
  level:11,
+ star5:"虹 / 6〜18",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"旧海",
+ location:"旧海の海辺",
  img:"images/000.PNG"
 },
 {
  name:"ニシツノメドリ(?)",
  level:12,
+ star5:"虹 / 6〜12",
  weather:["晴れ","虹"],
  time:["6-12","18-0","0-6"],
  location:"クジラ海の海辺",
@@ -2968,6 +3433,7 @@ const birdData = [
 {
  name:"フヨウチョウ(?)",
  level:12,
+ star5:"虹 / 18〜0",
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山",
@@ -2976,22 +3442,71 @@ const birdData = [
 {
  name:"アオアシカツオドリ(?)",
  level:12,
+ star5:"虹 / 12〜18",
  weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
- location:"そよ風の海",
+ location:"そよ風の海の海辺",
  img:"images/000.PNG"
 },
 {
  name:"シロフクロウ(?)",
  level:12,
+ star5:"虹 / 18〜0",
  weather:["晴れ","雨","虹"],
  time:["12-18","18-0"],
  location:"森林-不思議な松林",
  img:"images/000.PNG"
 },
 {
+ name:"オオハクチョウ(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"コクチョウ(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"郊外の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"クロクジャク(?)",
+ level:13,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","12-18","18-0","0-6"],
+ location:"巣ごもりクエスト(追加段階)",
+ img:"images/000.PNG"
+},
+{
+ name:"ナベコウ(?)",
+ level:14,
+ star5:"虹 / 12〜18",
+ weather:["晴れ","雨","虹"],
+ time:["12-18","18-0","0-6"],
+ location:"草原の湖",
+ img:"images/000.PNG"
+},
+{
+ name:"メガネフクロウ(?)",
+ level:14,
+ star5:"虹 / 6〜12",
+ weather:["晴れ","雨","虹"],
+ time:["6-12","0-6"],
+ location:"森林-ジャンプステージ",
+ img:"images/000.PNG"
+},
+{
  name:"積み木スズメ(ピンク)",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-石海岸の崖",
@@ -3000,6 +3515,8 @@ const birdData = [
 {
  name:"積み木スズメ(青)",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-温泉",
@@ -3008,6 +3525,8 @@ const birdData = [
 {
  name:"積み木スズメ(緑)",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-火山湖",
@@ -3016,6 +3535,8 @@ const birdData = [
 {
  name:"積み木スズメ(紫)",
  level:1,
+ price:10,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山-遺跡",
@@ -3024,6 +3545,8 @@ const birdData = [
 {
  name:"積み木スズメ(虹)",
  level:1,
+ price:15,
+ star5:"雨・虹 / 全時間",
  weather:["晴れ","雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"特殊積み木鳥クエスト",
@@ -3140,10 +3663,16 @@ function render(){
 
  let list = creatures.filter(c => {
 
+  // 流星雨は晴れ扱い
+  const weatherForCheck =
+   currentWeather === "流星雨"
+    ? "晴れ"
+    : currentWeather;
+   
   // 天気一致
   const weatherMatch =
     c.weather.length === ALL_WEATHER.length ||
-    c.weather.includes(currentWeather);
+    c.weather.includes(weatherForCheck);
 
   // 時間一致
   const timeMatch =
@@ -3249,10 +3778,14 @@ if(currentSort === "unchecked"){
   </div>
 
  ${c.shadow ? `
-  <div class="shadow-badge">
-  ${c.shadow}
- </div>
-   ` : ""}
+  <div class="
+    shadow-badge
+    ${c.shadow === "金" ? "shadow-gold" : ""}
+    ${c.shadow === "青" ? "shadow-blue" : ""}
+  ">
+    ${c.shadow}
+  </div>
+` : ""}
 
   <button class="
     check-btn
@@ -3443,11 +3976,34 @@ function openModal(c){
  m_loc.innerText=c.location;
  m_weather.innerText="天気："+formatWeather(c.weather);
  m_time.innerText="時間："+formatTime(c.time);
- m_price1.innerText = `★1｜${c.price?.[1] ?? "-"}`;
- m_price2.innerText = `★2｜${c.price?.[2] ?? "-"}`;
- m_price3.innerText = `★3｜${c.price?.[3] ?? "-"}`;
- m_price4.innerText = `★4｜${c.price?.[4] ?? "-"}`;
- m_price5.innerText = `★5｜${c.price?.[5] ?? "-"}`;
+ const basePrice = c.price ?? 0;
+
+ // 野鳥だけ特殊計算
+if(c.type === "bird"){
+  // ★2計算
+  function birdStar2(base){
+    const value = base * 4;
+    // 小さい値はそのまま
+    if(value <= 16){
+      return value;
+    }
+    // 10単位切り上げ
+    return Math.ceil(value / 10) * 10;
+  }
+  const star2 = birdStar2(basePrice);
+  m_price1.innerText =`★1｜${basePrice || "-"}`;
+  m_price2.innerText =`★2｜${basePrice ? star2 : "-"}`;
+  m_price3.innerText =`★3｜${basePrice ? star2 * 2 : "-"}`;
+  m_price4.innerText =`★4｜${basePrice ? star2 * 4 : "-"}`;
+  m_price5.innerText =`★5｜${basePrice ? star2 * 8 : "-"}`;
+}else{
+  // 魚・虫
+  m_price1.innerText =`★1｜${basePrice || "-"}`;
+  m_price2.innerText =`★2｜${basePrice ? Math.floor(basePrice * 1.5) : "-"}`;
+  m_price3.innerText =`★3｜${basePrice ? Math.floor(basePrice * 2) : "-"}`;
+  m_price4.innerText =`★4｜${basePrice ? Math.floor(basePrice * 4) : "-"}`;
+  m_price5.innerText =`★5｜${basePrice ? Math.floor(basePrice * 8) : "-"}`;
+ }
  m_star5.innerHTML =
   c.star5
   ? `★5条件：<br>${c.star5}`
@@ -3490,7 +4046,7 @@ levelMax.addEventListener(
   updateLevelRange
 );
 
-const popupVersion = "1.1.0";
+const popupVersion = "1.1.1";
 
 if(
  localStorage.getItem("popupVersion")
@@ -3527,7 +4083,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/18";
+  "最終更新 2026/05/19";
 </script>
 
 </body>
