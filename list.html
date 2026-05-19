@@ -300,6 +300,25 @@ body.dark h1{
       rgba(255,255,255,0.95) 0%,
       rgba(255,255,255,0.88) 100%
     );
+
+  border-radius:18px;
+  padding:10px;
+  backdrop-filter:blur(10px);
+
+  transition:
+    max-height .25s ease,
+    padding .25s ease,
+    opacity .25s ease;
+
+  overflow:hidden;
+
+  max-height:1000px;
+}
+
+/* 最小化時 */
+.sticky.minimized{
+  max-height:52px;
+  padding-bottom:6px;
 }
 
 /* 天気 */
@@ -792,14 +811,21 @@ body.dark .weather-next{
 /* ボタン */
 #minimizeBtn{
 
+  position:absolute;
+
+  top:12px;
+  left:12px;
+
+  z-index:20;
+
   border:none;
 
   border-radius:999px;
 
-  width:32px;
-  height:32px;
+  width:28px;
+  height:28px;
 
-  font-size:18px;
+  font-size:16px;
 
   background:
     linear-gradient(
@@ -840,9 +866,7 @@ body.dark #minimizeBtn{
 </div>
 
 <div class="card sticky" id="topPanel">
-<div style="text-align:right; margin-bottom:8px;">
-  <button id="minimizeBtn">－</button>
-</div>
+<button id="minimizeBtn">－</button>
 <div class="top-content">
   <div id="time" class="time"></div>
   <div class="weather-wrap">
