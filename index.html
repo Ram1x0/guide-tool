@@ -908,7 +908,7 @@ body.dark #minimizeBtn{
     id="levelMax"
     min="1"
     max="14"
-    value="11"
+    value="12"
     style="width:100%; margin-top:6px;"
   >
 </div>
@@ -1034,7 +1034,7 @@ let currentZone="";
 let currentWeather="";
 
 let minLevel = 1;
-let maxLevel = 11;
+let maxLevel = 12;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
@@ -1049,11 +1049,11 @@ const weatherData = {
  },
   "2026-05-28": {
    "6-12":"晴れ",
-   "12-18":"晴れ",
+   "12-18":"雨",
    "18-0":"晴れ",
    "0-6":"晴れ"
  },
-   "2026-05-26": {
+   "2026-05-29": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -1911,6 +1911,7 @@ const fishData = [
  name:"アジアアロワナ",
  level:11,
  shadow:"小",
+ price:395,
  weather:["虹"],
  time:["6-12","12-18","0-6"],
  location:"草原の湖",
@@ -1920,6 +1921,7 @@ const fishData = [
  name:"ライオンヘッド",
  level:11,
  shadow:"中",
+ price:395,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
@@ -1929,6 +1931,7 @@ const fishData = [
  name:"シマスズメダイ",
  level:11,
  shadow:"中",
+ price:610,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"そよ風の海",
@@ -1938,51 +1941,57 @@ const fishData = [
  name:"ジンベエザメ",
  level:11,
  shadow:"金",
+ price:850,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"海釣りクエスト",
  img:"images/000.PNG"
 },
 {
- name:"ベタ(?)",
+ name:"ベタ",
  level:12,
  shadow:"小",
+ price:395,
  weather:["雨","虹"],
  time:["12-18","18-0"],
- location:"森林-森の湖",
+ location:"森の湖",
  img:"images/000.PNG"
 },
 {
- name:"テンニンイシダイ(?)",
+ name:"エンゼルフィッシュ",
  level:12,
  shadow:"中",
+ price:610,
  weather:["虹"],
  time:["18-0","0-6"],
  location:"郊外の湖",
  img:"images/000.PNG"
 },
 {
- name:"シイラ(?)",
+ name:"シイラ",
  level:12,
  shadow:"大",
+ price:850,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"旧海",
  img:"images/000.PNG"
 },
 {
- name:"アオウミガメ(?)",
+ name:"アオウミガメ",
  level:12,
  shadow:"大",
+ price:850,
  weather:["虹"],
  time:["12-18","18-0"],
  location:"クジラ海",
  img:"images/000.PNG"
 },
 {
- name:"ミズクラゲ(?)",
+ name:"ミズクラゲ",
  level:12,
  shadow:"金",
+ price:850,
  weather:["雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"海釣りクエスト",
@@ -3485,7 +3494,7 @@ const birdData = [
  img:"images/000.PNG"
 },
 {
- name:"ニシツノメドリ(?)",
+ name:"ニシツノメドリ",
  level:12,
  star5:"虹 / 6〜12",
  weather:["晴れ","虹"],
@@ -4178,7 +4187,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/22";
+  "最終更新 2026/05/27";
 </script>
 
 </body>
