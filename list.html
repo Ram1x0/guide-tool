@@ -1062,7 +1062,7 @@ const weatherData = {
    "18-0":"晴れ",
    "0-6":"晴れ"
  },
-   "2026-06-11": {
+   "2026-06-14": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -3724,6 +3724,12 @@ searchInput.addEventListener("input", ()=>{
     searchInput.value
     ? "block"
     : "none";
+
+  localStorage.setItem(
+  "searchKeyword",
+  searchInput.value
+);
+  
   clearTimeout(searchTimer);
   searchTimer = setTimeout(()=>{
     render();
@@ -3733,6 +3739,7 @@ searchInput.addEventListener("input", ()=>{
 // ×ボタン
 clearBtn.onclick = ()=>{
   searchInput.value = "";
+  localStorage.removeItem("searchKeyword");
   clearBtn.style.display = "none";
   render();
 };
@@ -4012,7 +4019,7 @@ function getDateKey(offset=0){
 // 切替関数
 function setWeatherMode(mode){
   weatherMode = mode;
-
+  localStorage.setItem("weatherMode", mode);
   ["current","only","hidden"].forEach(x=>{
     document.getElementById("w_"+x).classList.remove("active");
   });
@@ -4025,6 +4032,7 @@ function setWeatherMode(mode){
 // フィルター
 function setFilter(t){
  currentFilter=t;
+ localStorage.setItem("currentFilter", t);
  ["all","fish","bug","bird"].forEach(x=>{
   document.getElementById("f_"+x).classList.remove("active");
  });
@@ -4034,6 +4042,7 @@ function setFilter(t){
 
 function setSort(type){
   currentSort = type;
+  localStorage.setItem("currentSort", type);
   ["book","level","unchecked"].forEach(x=>{
     document.getElementById("s_"+x).classList.remove("active");
   });
@@ -4201,6 +4210,9 @@ function updateLevelRange(){
   levelRangeText.textContent =
     `Lv.${minLevel}〜${maxLevel}`;
 
+  localStorage.setItem("minLevel", minLevel);
+  localStorage.setItem("maxLevel", maxLevel);
+  
   render();
 }
 
@@ -4282,11 +4294,27 @@ helpModal.onclick = (e)=>{
 };
 
 // 初期化
-updateTime();        // ←先に状態作る
-setFilter("all");    // ←ここで初回render
-setSort("book");
+updateTime();
+// 保存データ読込
+searchInput.value =
+  localStorage.getItem("searchKeyword") || "";
+clearBtn.style.display =
+  searchInput.value ? "block" : "none";
+levelMin.value =
+  localStorage.getItem("minLevel") || 1;
+levelMax.value =
+  localStorage.getItem("maxLevel") || 12;
+updateLevelRange();
+setFilter(
+  localStorage.getItem("currentFilter") || "all"
+);
+setSort(
+  localStorage.getItem("currentSort") || "book"
+);
+setWeatherMode(
+  localStorage.getItem("weatherMode") || "current"
+);
 setInterval(updateTime,1000);
-setWeatherMode("current");
 
 document.getElementById("version").textContent =
   "Ver " + APP_VERSION;
@@ -4295,7 +4323,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/06/11";
+  "最終更新 2026/06/12";
 </script>
 
 </body>
