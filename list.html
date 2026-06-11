@@ -3785,8 +3785,37 @@ function render(){
   }
 
   if (weatherMode === "only") {
-    return weatherMatch && c.weather.length === 1;
+  // 全天気は除外
+  if(c.weather.length === ALL_WEATHER.length){
+    return false;
   }
+
+  // 晴れの時
+  if(weatherForCheck === "晴れ"){
+    return (
+      c.weather.includes("晴れ") &&
+      c.weather.includes("虹")
+    );
+  }
+
+  // 雨の時
+  if(weatherForCheck === "雨"){
+    return (
+      c.weather.includes("雨") &&
+      c.weather.includes("虹")
+    );
+  }
+
+  // 虹の時
+  if(weatherForCheck === "虹"){
+    return (
+      (
+        c.weather.includes("虹")
+      )
+    );
+  }
+  return false;
+}
 
   if (weatherMode === "hidden") {
     // 今出現していないもの全部
@@ -3829,27 +3858,27 @@ if(currentSort === "level"){
 if(currentSort === "unchecked"){
   list.sort((a,b)=>{
 
-    const typeOrder = {
-      fish:0,
-      bug:1,
-      bird:2
-    };
-
-    // まず種類順
-    if(typeOrder[a.type] !== typeOrder[b.type]){
-      return typeOrder[a.type] - typeOrder[b.type];
-    }
-
     const aChecked = checkedData[a.name] ? 1 : 0;
     const bChecked = checkedData[b.name] ? 1 : 0;
 
-    // 次に未チェック優先
-    if(aChecked !== bChecked){
-      return aChecked - bChecked;
-    }
+// まず未コンプ優先
+if(aChecked !== bChecked){
+  return aChecked - bChecked;
+}
 
-    // 最後に図鑑順
-    return a.bookIndex - b.bookIndex;
+const typeOrder = {
+  fish:0,
+  bug:1,
+  bird:2
+};
+
+// 次に種類順
+if(typeOrder[a.type] !== typeOrder[b.type]){
+  return typeOrder[a.type] - typeOrder[b.type];
+}
+
+// 最後に図鑑順
+return a.bookIndex - b.bookIndex;
   });
 }
 
