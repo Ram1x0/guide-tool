@@ -6,12 +6,17 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="はとぴ図鑑">
+<meta name="google-site-verification" content="FXU4L5bgUFis9g2PvT9xhee4ClDYSn2NKRttGF_Riyo" />
   <!-- Webクリップアイコン -->
 <link rel="icon" type="image/png" href="/list.PNG?v=20">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=9">
 <link rel="manifest" href="./manifest.json">
 
 <title>はとぴ図鑑｜Heartopia(ハートピアスローライフ)の魚・虫・野鳥の入手方検索ツール</title>
+<meta
+ name="description"
+ content="Heartopia(ハートピアスローライフ)の魚・虫・野鳥の入手方法や出現場所、天気条件や時間帯を検索できる非公式図鑑ツール。今なにがとれるか全部分かる。売価表示対応。"
+/>
 <!-- OGP -->
 <meta property="og:title" content="はとぴ図鑑">
 <meta property="og:description" content="リアルタイムで出現している魚・虫・野鳥を確認できる非公式図鑑ツール">
@@ -887,7 +892,7 @@ body.dark #minimizeBtn{
     margin-bottom:6px;
   ">
     <span>レベル範囲</span>
-    <span id="levelRangeText">Lv.1〜11</span>
+    <span id="levelRangeText">Lv.1〜12</span>
   </div>
 
   <input
@@ -903,7 +908,7 @@ body.dark #minimizeBtn{
     id="levelMax"
     min="1"
     max="14"
-    value="11"
+    value="12"
     style="width:100%; margin-top:6px;"
   >
 </div>
@@ -998,13 +1003,13 @@ border-radius:28px;
 text-align:center;
 ">
 
-<h3>✨アップデート</h3>
+<h3>🔧不具合修正</h3>
 
 <p style="font-size:12px; line-height:1.7;">
 
-・売価追加完了<br>
-・魚影表示追加完了<br>
-・野鳥★5条件追加完了
+ メカジキの出現時間が<br>
+ 間違っていたのを修正しました。<br>
+ 他にもあれば教えてください！
 
 </p>
 
@@ -1017,7 +1022,7 @@ OK
   
 <script>
 
-const APP_VERSION = "1.1.1";
+const APP_VERSION = "1.1.3";
 
 let currentFilter="all";
 let currentSort = "book";
@@ -1029,26 +1034,26 @@ let currentZone="";
 let currentWeather="";
 
 let minLevel = 1;
-let maxLevel = 11;
+let maxLevel = 12;
   // チェック保存
 let checkedData =
   JSON.parse(localStorage.getItem("checkedData") || "{}");
 
 // 天気(毎日入力する) 
 const weatherData = {
- "2026-05-24": {
+ "2026-06-12": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
    "0-6":"晴れ"
  },
- "2026-05-22": {
+  "2026-06-13": {
    "6-12":"晴れ",
    "12-18":"晴れ",
-   "18-0":"流星雨",
+   "18-0":"晴れ",
    "0-6":"晴れ"
  },
-  "2026-05-23": {
+   "2026-06-11": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -1367,7 +1372,7 @@ const fishData = [
  level:3,
  shadow:"小",
  price:100,
- weather:["晴れ","雨","虹"],
+ weather:["雨","虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"郊外の湖",
  img:"fish/031.PNG"
@@ -1878,7 +1883,7 @@ const fishData = [
  shadow:"大",
  price:850,
  weather:["虹"],
- time:["12-18","18-0"],
+ time:["6-12","12-18"],
  location:"クジラ海",
  img:"fish/082.PNG"
 },
@@ -1906,6 +1911,7 @@ const fishData = [
  name:"アジアアロワナ",
  level:11,
  shadow:"小",
+ price:395,
  weather:["虹"],
  time:["6-12","12-18","0-6"],
  location:"草原の湖",
@@ -1915,6 +1921,7 @@ const fishData = [
  name:"ライオンヘッド",
  level:11,
  shadow:"中",
+ price:395,
  weather:["虹"],
  time:["6-12","12-18","18-0","0-6"],
  location:"温泉山の湖",
@@ -1924,6 +1931,7 @@ const fishData = [
  name:"シマスズメダイ",
  level:11,
  shadow:"中",
+ price:610,
  weather:["晴れ","虹"],
  time:["12-18","18-0"],
  location:"そよ風の海",
@@ -1933,51 +1941,57 @@ const fishData = [
  name:"ジンベエザメ",
  level:11,
  shadow:"金",
+ price:850,
  weather:["晴れ","虹"],
  time:["18-0","0-6"],
  location:"海釣りクエスト",
  img:"images/000.PNG"
 },
 {
- name:"トウギョ(?)",
+ name:"ベタ",
  level:12,
  shadow:"小",
+ price:395,
  weather:["雨","虹"],
- time:["6-12","12-18"],
- location:"温泉山-遺跡",
+ time:["12-18","18-0"],
+ location:"森の湖",
  img:"images/000.PNG"
 },
 {
- name:"テンニンイシダイ(?)",
+ name:"エンゼルフィッシュ",
  level:12,
  shadow:"中",
+ price:610,
  weather:["虹"],
  time:["18-0","0-6"],
  location:"郊外の湖",
  img:"images/000.PNG"
 },
 {
- name:"シイラ(?)",
+ name:"シイラ",
  level:12,
  shadow:"大",
+ price:850,
  weather:["虹"],
  time:["6-12","12-18"],
  location:"旧海",
  img:"images/000.PNG"
 },
 {
- name:"アオウミガメ(?)",
+ name:"アオウミガメ",
  level:12,
  shadow:"大",
+ price:850,
  weather:["虹"],
  time:["12-18","18-0"],
  location:"クジラ海",
  img:"images/000.PNG"
 },
 {
- name:"ミズクラゲ(?)",
+ name:"ミズクラゲ",
  level:12,
  shadow:"金",
+ price:850,
  weather:["雨","虹"],
  time:["12-18","18-0","0-6"],
  location:"海釣りクエスト",
@@ -2687,7 +2701,7 @@ const bugData = [
  img:"images/000.PNG"
 }, 
 {
- name:"ミイロタイマイ(?)",
+ name:"ミイロタイマイ",
  level:12,
  weather:["雨","虹"],
  time:["6-12","18-0"],
@@ -2695,7 +2709,7 @@ const bugData = [
  img:"images/000.PNG"
 },
 {
- name:"ゴライアスオオツノハナムグリ(?)",
+ name:"オオサマゴライアス",
  level:12,
  weather:["虹"],
  time:["18-0","0-6"],
@@ -2703,7 +2717,7 @@ const bugData = [
  img:"images/000.PNG"
 },
 {
- name:"キマダラドクバッタ(?)",
+ name:"トウワタバッタ",
  level:12,
  weather:["雨","虹"],
  time:["6-12","12-18"],
@@ -3480,7 +3494,7 @@ const birdData = [
  img:"images/000.PNG"
 },
 {
- name:"ニシツノメドリ(?)",
+ name:"ニシツノメドリ",
  level:12,
  star5:"虹 / 6〜12",
  weather:["晴れ","虹"],
@@ -3489,7 +3503,7 @@ const birdData = [
  img:"images/000.PNG"
 },
 {
- name:"フヨウチョウ(?)",
+ name:"フヨウチョウ",
  level:12,
  star5:"虹 / 18〜0",
  weather:["虹"],
@@ -3498,7 +3512,7 @@ const birdData = [
  img:"images/000.PNG"
 },
 {
- name:"アオアシカツオドリ(?)",
+ name:"アオアシカツオドリ",
  level:12,
  star5:"虹 / 12〜18",
  weather:["雨","虹"],
@@ -3507,7 +3521,7 @@ const birdData = [
  img:"images/000.PNG"
 },
 {
- name:"シロフクロウ(?)",
+ name:"シロフクロウ",
  level:12,
  star5:"虹 / 18〜0",
  weather:["晴れ","雨","虹"],
@@ -4104,7 +4118,7 @@ levelMax.addEventListener(
   updateLevelRange
 );
 
-const popupVersion = "1.1.1";
+const popupVersion = "1.1.3";
 
 if(
  localStorage.getItem("popupVersion")
@@ -4173,7 +4187,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/05/19";
+  "最終更新 2026/06/11";
 </script>
 
 </body>
