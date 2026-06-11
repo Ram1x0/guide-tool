@@ -4239,17 +4239,13 @@ if(localStorage.getItem("topMinimized") === "true"){
 
 // ボタン
 minimizeBtn.onclick = ()=>{
-
   topPanel.classList.toggle("minimized");
-
   const minimized =
     topPanel.classList.contains("minimized");
-
   minimizeBtn.textContent =
     minimized
     ? "＋"
     : "－";
-
   localStorage.setItem(
     "topMinimized",
     minimized
