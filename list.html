@@ -416,7 +416,7 @@ body.dark .weather-next{
     );
 }
 
-  .shadow-gold{
+.shadow-gold{
   background:
     linear-gradient(
       180deg,
@@ -712,45 +712,29 @@ body.dark .update-popup-box h3{
 
 /* ボタン */
 #minimizeBtn{
-
   border:none;
-
   border-radius:999px;
-
   width:32px;
-
   height:32px;
-
   font-size:18px;
-
   background:
-
     linear-gradient(
-
       180deg,
-
       #ffffff 0%,
-
       #edf5ff 100%
-
     );
-
   box-shadow:
-
     0 4px 10px rgba(0,0,0,0.08);
-
   font-family:'Mochiy Pop One', sans-serif;
-
 }
+  
 body.dark #minimizeBtn{
-
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
-
   color:white;
 }
 </style>
@@ -795,10 +779,10 @@ body.dark #minimizeBtn{
   </div>
 
   <div class="filter" style="margin-top:6px;">
-  <button onclick="setSort('book')" id="s_book">図鑑順</button>
-  <button onclick="setSort('level')" id="s_level">レベル順</button>
-  <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
-</div>
+    <button onclick="setSort('book')" id="s_book">図鑑順</button>
+    <button onclick="setSort('level')" id="s_level">レベル順</button>
+    <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
+  </div>
 
 <div class="filter" style="margin-top:6px;">
   <button id="multiBtn" onclick="toggleMultiSelect()">
@@ -4251,6 +4235,22 @@ minimizeBtn.onclick = ()=>{
     "topMinimized",
     minimized
   );
+};
+
+const helpBtn = document.getElementById("helpBtn");
+const helpModal = document.getElementById("helpModal");
+helpBtn.onclick = ()=>{
+  helpModal.style.display = "block";
+};
+
+function closeHelpModal(){
+  helpModal.style.display = "none";
+}
+
+helpModal.onclick = (e)=>{
+  if(e.target === helpModal){
+    closeHelpModal();
+  }
 };
 
 // 初期化
