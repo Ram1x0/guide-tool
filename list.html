@@ -1030,8 +1030,8 @@ text-align:center;
  ダークモード使用時の<br>
  修正時ポップアップの<br>
  文字の色が見にくいのを修正しました。<br>
- また星ボタンを一括押せるように<br>
- 複数選択機能を追加しました！
+ また星ボタンを一括で押せるように<br>
+ 複数選択機能を追加しました！<br>
  他にもあれば教えてください！
   
 </p>
@@ -3909,7 +3909,10 @@ div.onclick = ()=>{
   if(multiSelectMode){
     selectedItems[c.name] =
       !selectedItems[c.name];
-    render();
+    div.classList.toggle(
+      "selected",
+      selectedItems[c.name]
+    );
     return;
   }
   openModal(c);
