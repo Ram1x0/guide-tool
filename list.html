@@ -41,16 +41,13 @@ body{
   margin:0;
   padding:12px;
   font-family:'Mochiy Pop One', sans-serif;
-
   background:
     linear-gradient(
       180deg,
       #ffd6ea 0%,
       #c7dcff 100%
     );
-
   color:#334155;
-
   overflow-x:hidden;
   position:relative;
   background-attachment:fixed;
@@ -60,64 +57,48 @@ body{
 body::before{
   content:"";
   position:fixed;
-
   width:320px;
   height:320px;
-
   background:rgba(255,255,255,0.28);
-
   border-radius:50%;
-
   top:-120px;
   right:-100px;
-
   filter:blur(45px);
-
   z-index:-1;
 }
 
 body::after{
   content:"";
   position:fixed;
-
   width:260px;
   height:260px;
-
   background:rgba(255,255,255,0.18);
-
   border-radius:50%;
-
   bottom:-100px;
   left:-80px;
-
   filter:blur(45px);
-
   z-index:-1;
 }
 
 /* ダークモード */
 body.dark{
-
   background:
     linear-gradient(
       180deg,
       #1e293b 0%,
       #0f172a 100%
     );
-
   color:#e2e8f0;
 }
 
 /* タイトルエリア */
 .title-bar{
-
   position:relative;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
   margin-bottom:10px;
+  min-height:40px;
 }
 
 /* タイトル */
@@ -127,6 +108,7 @@ body.dark{
 
 /* ダークモードボタン */
 #darkToggle{
+  position:static;
   border:none;
   border-radius:999px;
   padding:8px 14px;
@@ -154,23 +136,19 @@ body.dark .card,
 body.dark .item,
 body.dark .modal-box,
 body.dark .sticky{
-
   background:
     linear-gradient(
       180deg,
       rgba(30,41,59,0.96) 0%,
       rgba(15,23,42,0.96) 100%
     );
-
   color:#e2e8f0;
-
   border:none;
 }
 
 /* ダーク時画像背景 */
 body.dark .item img,
 body.dark .modal-box img{
-
   background:
     linear-gradient(
       180deg,
@@ -181,14 +159,12 @@ body.dark .modal-box img{
 
 /* ダーク時入力 */
 body.dark .search{
-
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
-
   color:white;
 }
 
@@ -196,20 +172,17 @@ body.dark .search{
 body.dark .filter button,
 body.dark .modal-box button,
 body.dark #darkToggle{
-
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
-
   color:white;
 }
 
 /* ダーク時ONボタン */
 body.dark .active{
-
   background:
     linear-gradient(
       180deg,
@@ -222,6 +195,8 @@ body.dark .active{
 .title-buttons{
   position:absolute;
   right:0;
+  top:50%;
+  transform:translateY(-50%);
   display:flex;
   gap:8px;
 }
@@ -278,20 +253,16 @@ body.dark h3{
 h1{
   text-align:center;
   font-size:24px;
-
   color:#1e293b;
-
   text-shadow:
     0 2px 0 rgba(255,255,255,0.3),
     0 4px 12px rgba(255,255,255,0.45);
-
   margin-bottom:10px;
 }
 
 /* ダークモード時だけ白 */
 body.dark h1{
   color:white;
-
   text-shadow:
     0 2px 0 rgba(0,0,0,0.3),
     0 4px 12px rgba(0,0,0,0.45);
