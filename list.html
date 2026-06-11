@@ -3786,32 +3786,33 @@ function render(){
 
   if (weatherMode === "only") {
   // 全天気は除外
-  if(c.weather.length === ALL_WEATHER.length){
+  if (c.weather.length === ALL_WEATHER.length) {
     return false;
   }
-
-  // 晴れの時
-  if(weatherForCheck === "晴れ"){
+  // 晴れ・流星雨
+  if (weatherForCheck === "晴れ") {
     return (
+      c.weather.length === 2 &&
       c.weather.includes("晴れ") &&
-      c.weather.includes("虹")
+      c.weather.includes("虹") &&
+      timeMatch
     );
   }
-
-  // 雨の時
-  if(weatherForCheck === "雨"){
+  // 雨
+  if (weatherForCheck === "雨") {
     return (
+      c.weather.length === 2 &&
       c.weather.includes("雨") &&
-      c.weather.includes("虹")
+      c.weather.includes("虹") &&
+      timeMatch
     );
   }
-
-  // 虹の時
-  if(weatherForCheck === "虹"){
+  // 虹
+  if (weatherForCheck === "虹") {
     return (
-      (
-        c.weather.includes("虹")
-      )
+      c.weather.length === 1 &&
+      c.weather.includes("虹") &&
+      timeMatch
     );
   }
   return false;
