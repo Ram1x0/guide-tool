@@ -3798,45 +3798,48 @@ const searchInput = document.getElementById("search");
 const clearBtn = document.getElementById("clearBtn");
 
 // 入力時
+const searchInput = document.getElementById("search");
+const miniSearch = document.getElementById("miniSearch");
+const clearBtn = document.getElementById("clearBtn");
+
 let searchTimer;
+
+// 通常検索バー
 searchInput.addEventListener("input", ()=>{
-const miniSearch =
-  document.getElementById("miniSearch");
-searchInput.addEventListener("input", ()=>{
- // 最小化用検索バーにも反映
+
   miniSearch.value = searchInput.value;
+
   clearBtn.style.display =
-    searchInput.value
-    ? "block"
-    : "none";
+    searchInput.value ? "block" : "none";
 
   localStorage.setItem(
     "searchKeyword",
     searchInput.value
   );
-  
+
   clearTimeout(searchTimer);
+
   searchTimer = setTimeout(()=>{
     render();
-  }, 180);
+  },180);
+
 });
 
-  miniSearch.addEventListener("input", ()=>{
+// 最小化検索バー
+miniSearch.addEventListener("input", ()=>{
 
-  // 通常検索バーにも反映
   searchInput.value = miniSearch.value;
 
   clearBtn.style.display =
-    searchInput.value
-    ? "block"
-    : "none";
+    miniSearch.value ? "block" : "none";
 
   localStorage.setItem(
     "searchKeyword",
-    searchInput.value
+    miniSearch.value
   );
 
   render();
+
 });
 
 // ×ボタン
