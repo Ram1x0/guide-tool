@@ -760,6 +760,75 @@ body.dark #minimizeBtn{
     );
   color:white;
 }
+
+/* 最小化時の情報 */
+.mini-info{
+  display:none;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.minimized .mini-info{
+  display:flex;
+}
+
+/* 検索欄 */
+.mini-search{
+  flex:1;
+  padding:8px 12px;
+  font-size:11px;
+}
+
+/* 時間・天気 */
+.mini-status{
+  text-align:right;
+  white-space:nowrap;
+  font-size:11px;
+}
+
+#miniTime{
+  font-size:14px;
+}
+
+#miniWeather{
+  font-size:10px;
+  opacity:0.8;
+}/* 最小化時の情報 */
+.mini-info{
+  display:none;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.minimized .mini-info{
+  display:flex;
+}
+
+/* 検索欄 */
+.mini-search{
+  flex:1;
+  padding:8px 12px;
+  font-size:11px;
+}
+
+/* 時間・天気 */
+.mini-status{
+  text-align:right;
+  white-space:nowrap;
+  font-size:11px;
+}
+
+#miniTime{
+  font-size:14px;
+}
+
+#miniWeather{
+  font-size:10px;
+  opacity:0.8;
+}
+  
 </style>
 </head>
 
@@ -778,7 +847,7 @@ body.dark #minimizeBtn{
 <div class="card sticky" id="topPanel">
 <button id="minimizeBtn">－</button>
 <div class="top-content">
-  <div id="time" class="time"></div>
+    <div id="time" class="time"></div>
   <div class="weather-wrap">
   <div id="weatherNow" class="weather-now"></div>
   <div id="weatherNext" class="weather-next"></div>
@@ -854,6 +923,20 @@ body.dark #minimizeBtn{
     style="width:100%; margin-top:6px;"
   >
 </div>
+</div>
+
+  <div class="mini-info">
+  <input
+    type="text"
+    id="miniSearch"
+    class="search mini-search"
+    placeholder="🔍検索"
+  >
+
+  <div class="mini-status">
+    <div id="miniTime"></div>
+    <div id="miniWeather"></div>
+  </div>
 </div>
 </div>
   
@@ -3717,20 +3800,43 @@ const clearBtn = document.getElementById("clearBtn");
 // 入力時
 let searchTimer;
 searchInput.addEventListener("input", ()=>{
+const miniSearch =
+  document.getElementById("miniSearch");
+searchInput.addEventListener("input", ()=>{
+ // 最小化用検索バーにも反映
+  miniSearch.value = searchInput.value;
   clearBtn.style.display =
     searchInput.value
     ? "block"
     : "none";
 
   localStorage.setItem(
-  "searchKeyword",
-  searchInput.value
-);
+    "searchKeyword",
+    searchInput.value
+  );
   
   clearTimeout(searchTimer);
   searchTimer = setTimeout(()=>{
     render();
   }, 180);
+});
+
+  miniSearch.addEventListener("input", ()=>{
+
+  // 通常検索バーにも反映
+  searchInput.value = miniSearch.value;
+
+  clearBtn.style.display =
+    searchInput.value
+    ? "block"
+    : "none";
+
+  localStorage.setItem(
+    "searchKeyword",
+    searchInput.value
+  );
+
+  render();
 });
 
 // ×ボタン
@@ -3994,6 +4100,14 @@ function updateTime(){
   `今： ${weather}`;
  document.getElementById("weatherNext").innerText =
   `次：${nextWeather}`;
+ document.getElementById("miniTime").innerText =
+  now.toLocaleTimeString([], {
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+
+document.getElementById("miniWeather").innerText =
+  weather;
 
  // 👇 変化した時だけrender
  if(changed){
