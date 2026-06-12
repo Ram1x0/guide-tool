@@ -762,44 +762,22 @@ body.dark #minimizeBtn{
 }
 
 /* 最小化時の情報 */
-.mini-info{
-  display:none;
-  align-items:center;
-  gap:8px;
-  margin-top:8px;
-}
-
-.minimized .mini-info{
+.mini-header{
   display:flex;
+  align-items:center;
 }
 
-/* 検索欄 */
-.mini-search{
-  flex:1;
-  padding:8px 12px;
-  font-size:11px;
-}
-
-/* 時間・天気 */
-.mini-status{
-  text-align:right;
-  white-space:nowrap;
-  font-size:11px;
-}
-
-#miniTime{
-  font-size:14px;
-}
-
-#miniWeather{
-  font-size:10px;
-  opacity:0.8;
-}/* 最小化時の情報 */
 .mini-info{
   display:none;
   align-items:center;
   gap:8px;
   margin-top:8px;
+  flex:1;
+}
+
+.minimized{
+  display:flex;
+  align-items:center;
 }
 
 .minimized .mini-info{
@@ -846,6 +824,21 @@ body.dark #minimizeBtn{
 
 <div class="card sticky" id="topPanel">
 <button id="minimizeBtn">－</button>
+
+<div class="mini-info">
+  <input
+    type="text"
+    id="miniSearch"
+    class="search mini-search"
+    placeholder="🔍検索"
+  >
+
+  <div class="mini-status">
+    <div id="miniTime"></div>
+    <div id="miniWeather"></div>
+  </div>
+</div>
+</div>
 <div class="top-content">
     <div id="time" class="time"></div>
   <div class="weather-wrap">
@@ -922,21 +915,6 @@ body.dark #minimizeBtn{
     value="12"
     style="width:100%; margin-top:6px;"
   >
-</div>
-</div>
-
-  <div class="mini-info">
-  <input
-    type="text"
-    id="miniSearch"
-    class="search mini-search"
-    placeholder="🔍検索"
-  >
-
-  <div class="mini-status">
-    <div id="miniTime"></div>
-    <div id="miniWeather"></div>
-  </div>
 </div>
 </div>
   
