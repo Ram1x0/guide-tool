@@ -41,13 +41,16 @@ body{
   margin:0;
   padding:12px;
   font-family:'Mochiy Pop One', sans-serif;
+
   background:
     linear-gradient(
       180deg,
       #ffd6ea 0%,
       #c7dcff 100%
     );
+
   color:#334155;
+
   overflow-x:hidden;
   position:relative;
   background-attachment:fixed;
@@ -57,48 +60,64 @@ body{
 body::before{
   content:"";
   position:fixed;
+
   width:320px;
   height:320px;
+
   background:rgba(255,255,255,0.28);
+
   border-radius:50%;
+
   top:-120px;
   right:-100px;
+
   filter:blur(45px);
+
   z-index:-1;
 }
 
 body::after{
   content:"";
   position:fixed;
+
   width:260px;
   height:260px;
+
   background:rgba(255,255,255,0.18);
+
   border-radius:50%;
+
   bottom:-100px;
   left:-80px;
+
   filter:blur(45px);
+
   z-index:-1;
 }
 
 /* ダークモード */
 body.dark{
+
   background:
     linear-gradient(
       180deg,
       #1e293b 0%,
       #0f172a 100%
     );
+
   color:#e2e8f0;
 }
 
 /* タイトルエリア */
 .title-bar{
+
   position:relative;
+
   display:flex;
   justify-content:center;
   align-items:center;
+
   margin-bottom:10px;
-  min-height:40px;
 }
 
 /* タイトル */
@@ -108,22 +127,33 @@ body.dark{
 
 /* ダークモードボタン */
 #darkToggle{
-  position:static;
+
+  position:absolute;
+  right:0;
+
   border:none;
+
   border-radius:999px;
+
   padding:8px 14px;
+
   font-size:11px;
+
   font-family:'Mochiy Pop One', sans-serif;
+
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
       #edf5ff 100%
     );
+
   color:#334155;
+
   box-shadow:
     0 5px 12px rgba(0,0,0,0.08),
     inset 0 2px 5px rgba(255,255,255,0.9);
+
   transition:0.2s;
 }
 
@@ -136,19 +166,23 @@ body.dark .card,
 body.dark .item,
 body.dark .modal-box,
 body.dark .sticky{
+
   background:
     linear-gradient(
       180deg,
       rgba(30,41,59,0.96) 0%,
       rgba(15,23,42,0.96) 100%
     );
+
   color:#e2e8f0;
+
   border:none;
 }
 
 /* ダーク時画像背景 */
 body.dark .item img,
 body.dark .modal-box img{
+
   background:
     linear-gradient(
       180deg,
@@ -159,12 +193,14 @@ body.dark .modal-box img{
 
 /* ダーク時入力 */
 body.dark .search{
+
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
+
   color:white;
 }
 
@@ -172,17 +208,20 @@ body.dark .search{
 body.dark .filter button,
 body.dark .modal-box button,
 body.dark #darkToggle{
+
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
+
   color:white;
 }
 
 /* ダーク時ONボタン */
 body.dark .active{
+
   background:
     linear-gradient(
       180deg,
@@ -191,50 +230,6 @@ body.dark .active{
     ) !important;
 }
 
-/* タイトル右側ボタン群 */
-.title-buttons{
-  position:absolute;
-  right:0;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  gap:8px;
-}
-
-/* ヘルプボタン */
-#helpBtn{
-  border:none;
-  border-radius:999px;
-  padding:8px 14px;
-  font-size:11px;
-  font-family:'Mochiy Pop One', sans-serif;
-  background:
-    linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #edf5ff 100%
-    );
-  color:#334155;
-  box-shadow:
-    0 5px 12px rgba(0,0,0,0.08),
-    inset 0 2px 5px rgba(255,255,255,0.9);
-  transition:0.2s;
-}
-
-#helpBtn:active{
-  transform:scale(0.96);
-}
-
-body.dark #helpBtn{
-  background:
-    linear-gradient(
-      180deg,
-      #334155 0%,
-      #1e293b 100%
-    );
-  color:white;
-}
-  
 /* ダーク時文字 */
 body.dark .weather,
 body.dark .time,
@@ -253,16 +248,20 @@ body.dark h3{
 h1{
   text-align:center;
   font-size:24px;
+
   color:#1e293b;
+
   text-shadow:
     0 2px 0 rgba(255,255,255,0.3),
     0 4px 12px rgba(255,255,255,0.45);
+
   margin-bottom:10px;
 }
 
 /* ダークモード時だけ白 */
 body.dark h1{
   color:white;
+
   text-shadow:
     0 2px 0 rgba(0,0,0,0.3),
     0 4px 12px rgba(0,0,0,0.45);
@@ -270,17 +269,24 @@ body.dark h1{
 
 /* カード */
 .card{
+
   background:
     linear-gradient(
       180deg,
       rgba(255,255,255,0.96) 0%,
       rgba(255,255,255,0.88) 100%
     );
+
   backdrop-filter:blur(12px);
+
   border-radius:30px;
+
   padding:14px;
+
   margin-top:12px;
+
   border:2px solid rgba(255,255,255,0.65);
+
   box-shadow:
     0 12px 30px rgba(0,0,0,0.12),
     inset 0 2px 8px rgba(255,255,255,0.95),
@@ -292,8 +298,7 @@ body.dark h1{
   position:sticky;
   top:8px;
   z-index:100;
-  width:100%;
-  box-sizing:border-box;
+
   background:
     linear-gradient(
       180deg,
@@ -312,24 +317,34 @@ body.dark h1{
 
 /* 天気全体 */
 .weather-wrap{
+
   display:flex;
+
   justify-content:center;
   align-items:flex-end;
+
   gap:8px;
+
   margin-bottom:8px;
 }
 
 /* 今の天気 */
 .weather-now{
+
   font-size:18px;
+
   color:#475569;
 }
 
 /* 次の天気 */
 .weather-next{
+
   font-size:11px;
+
   opacity:0.7;
+
   color:#64748b;
+
   margin-bottom:2px;
 }
 
@@ -352,49 +367,70 @@ body.dark .weather-next{
 
 /* 検索 */
 .search{
+
   width:100%;
+
   padding:12px 16px;
+
   border:none;
   outline:none;
+
   border-radius:999px;
+
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
       #edf5ff 100%
     );
+
   box-shadow:
     inset 0 2px 5px rgba(255,255,255,0.95),
     inset 0 -2px 6px rgba(0,0,0,0.05),
     0 5px 12px rgba(0,0,0,0.06);
+
   font-family:'Mochiy Pop One', sans-serif;
+
   box-sizing:border-box;
+
   font-size:13px;
 }
 
   /* 画像ラッパー */
 .img-wrap{
+
   position:relative;
+
   width:100%;
 }
 
 /* レベル表示 */
 .level-badge{
+
   position:absolute;
+
   top:6px;
   left:6px;
+
   z-index:5;
+
   padding:1px 4px;
+
   border-radius:999px;
+
   font-size:6px;
+
   color:white;
+
   background:
     linear-gradient(
       180deg,
       rgba(0,0,0,0.7) 0%,
       rgba(0,0,0,0.5) 100%
     );
+
   backdrop-filter:blur(4px);
+
   box-shadow:
     0 2px 6px rgba(0,0,0,0.2);
 }
@@ -416,7 +452,7 @@ body.dark .weather-next{
     );
 }
 
-.shadow-gold{
+  .shadow-gold{
   background:
     linear-gradient(
       180deg,
@@ -438,45 +474,61 @@ body.dark .weather-next{
 
 /* チェックボタン */
 .check-btn{
+
   position:absolute;
+
   top:6px;
   right:6px;
+
   width:22px;
   height:22px;
+
   border-radius:50%;
+
   border:none;
+
   background:
     linear-gradient(
       180deg,
       rgba(255,255,255,0.95) 0%,
       rgba(240,240,240,0.95) 100%
     );
+
   font-size:12px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   box-shadow:
     0 2px 6px rgba(0,0,0,0.15);
+
   z-index:10;
 }
 
 /* ON状態 */
 .check-btn.checked{
+
   background:
     linear-gradient(
       180deg,
       #73d8ff 0%,
       #49beff 100%
     );
+
   color:white;
 }
 
 /* 名前 */
 .item-name{
+
   height:34px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   line-height:1.2;
 }
 
@@ -485,16 +537,24 @@ body.dark .weather-next{
   position:absolute;
   right:12px;
   top:50%;
+
   transform:translateY(-50%);
+
   border:none;
+
   width:28px;
   height:28px;
+
   border-radius:50%;
+
   background:white;
+
   box-shadow:
     0 4px 8px rgba(0,0,0,0.08),
     inset 0 2px 3px rgba(255,255,255,0.9);
+
   font-size:15px;
+
   display:none;
 }
 
@@ -508,45 +568,60 @@ body.dark .weather-next{
 /* ボタン */
 .filter button,
 .modal-box button{
+
   flex:1;
+
   border:none;
+
   border-radius:999px;
+
   padding:10px;
+
   font-family:'Mochiy Pop One', sans-serif;
+
   font-size:11px;
+
   background:
     linear-gradient(
       180deg,
       #e2f5ff 0%,
       #bde7ff 100%
     );
+
   color:#245;
+
   box-shadow:
     0 7px 14px rgba(0,0,0,0.08),
     inset 0 2px 5px rgba(255,255,255,0.85),
     inset 0 -2px 4px rgba(0,0,0,0.05);
+
   transition:0.15s;
 }
 
 /* 押した時 */
 .filter button:active,
 .modal-box button:active{
+
   transform:
     translateY(2px)
     scale(0.97);
+
   box-shadow:
     inset 0 2px 5px rgba(0,0,0,0.08);
 }
 
 /* ON状態 */
 .active{
+
   background:
     linear-gradient(
       180deg,
       #73d8ff 0%,
       #49beff 100%
     ) !important;
+
   color:white;
+
   box-shadow:
     0 10px 18px rgba(73,190,255,0.45),
     inset 0 2px 5px rgba(255,255,255,0.65);
@@ -555,30 +630,42 @@ body.dark .weather-next{
 /* グリッド */
 .grid{
   display:grid;
+
   grid-template-columns:
     repeat(4,1fr);
+
   gap:10px;
+
   margin-top:14px;
 }
 
 /* アイテム */
 .item{
+
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
       #f5f9ff 100%
     );
+
   border-radius:24px;
+
   padding:10px;
+
   text-align:center;
+
   font-size:11px;
+
   box-shadow:
     0 10px 20px rgba(0,0,0,0.08),
     inset 0 2px 6px rgba(255,255,255,0.95),
     inset 0 -2px 6px rgba(0,0,0,0.04);
+
   transition:0.15s;
+
   position:relative;
+
   overflow:hidden;
 }
 
@@ -592,55 +679,73 @@ body.dark .weather-next{
   transform:scale(0.96);
 }
 
-.item.selected{
-  outline:4px solid #49beff;
-  outline-offset:-4px;
-}
-
 .item img{
+
   width:100%;
+
   aspect-ratio:1/1;
+
   object-fit:contain;
+
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
       #eef5ff 100%
     );
+
   border-radius:18px;
+
   padding:2px;
+
   box-sizing:border-box;
+
   box-shadow:
     inset 0 2px 5px rgba(255,255,255,0.95),
     inset 0 -2px 5px rgba(0,0,0,0.05);
+
   margin-bottom:6px;
+
   display:block;
 }
 
 /* モーダル */
 #modal{
   display:none;
+
   position:fixed;
+
   inset:0;
+
   background:rgba(0,0,0,0.35);
+
   backdrop-filter:blur(5px);
+
   z-index:999;
 }
 
 .modal-box{
+
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
       #f4f9ff 100%
     );
+
   margin:60px auto;
+
   padding:18px;
+
   width:90%;
   max-width:320px;
+
   border-radius:32px;
+
   text-align:center;
+
   border:2px solid rgba(255,255,255,0.7);
+
   box-shadow:
     0 25px 45px rgba(0,0,0,0.18),
     inset 0 2px 8px rgba(255,255,255,0.95);
@@ -689,124 +794,49 @@ body.dark .weather-next{
   display:none;
 }
 
-.update-popup-box{
-  background:white;
-  color:#334155;
-}
-
-body.dark .update-popup-box{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(30,41,59,0.96) 0%,
-      rgba(15,23,42,0.96) 100%
-    );
-  color:#e2e8f0;
-}
-
-body.dark .update-popup-box p,
-body.dark .update-popup-box h3{
-  color:#e2e8f0;
-}
-
-/* ヘルプモーダル */
-.help-modal-box{
-  background:white;
-  color:#334155;
-}
-
-/* ダークモード */
-body.dark .help-modal-box{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(30,41,59,0.96) 0%,
-      rgba(15,23,42,0.96) 100%
-    );
-  color:#e2e8f0;
-}
-
-/* ヘルプ内の文字 */
-body.dark .help-modal-box p,
-body.dark .help-modal-box h3,
-body.dark .help-modal-box strong{
-  color:#e2e8f0;
-}
-
 /* ボタン */
 #minimizeBtn{
+
   border:none;
+
   border-radius:999px;
+
   width:32px;
+
   height:32px;
+
   font-size:18px;
+
   background:
+
     linear-gradient(
+
       180deg,
+
       #ffffff 0%,
+
       #edf5ff 100%
+
     );
+
   box-shadow:
+
     0 4px 10px rgba(0,0,0,0.08);
+
   font-family:'Mochiy Pop One', sans-serif;
+
 }
-  
 body.dark #minimizeBtn{
+
   background:
     linear-gradient(
       180deg,
       #334155 0%,
       #1e293b 100%
     );
+
   color:white;
 }
-
-/* 最小化時の情報 */
-.mini-header{
-  display:flex;
-  align-items:center;
-}
-
-.mini-info{
-  display:none;
-  align-items:center;
-  gap:8px;
-  margin-top:8px;
-  flex:1;
-}
-
-.minimized{
-  display:flex;
-  align-items:center;
-}
-
-.minimized .mini-info{
-  display:flex;
-}
-
-/* 検索欄 */
-.mini-search{
-  flex:1;
-  padding:8px 12px;
-  font-size:11px;
-}
-
-/* 時間・天気 */
-.mini-status{
-  text-align:right;
-  white-space:nowrap;
-  font-size:11px;
-}
-
-#miniTime{
-  font-size:14px;
-}
-
-#miniWeather{
-  font-size:10px;
-  opacity:0.8;
-}
-  
 </style>
 </head>
 
@@ -815,32 +845,16 @@ body.dark #minimizeBtn{
 
   <h1>💘はとぴ図鑑🔎</h1>
 
-  <div class="title-buttons">
-   <button id="helpBtn">ℹ️</button>
-   <button id="darkToggle">🌙</button>
-  </div>
-    
+  <button id="darkToggle">
+    🌙
+  </button>
+
 </div>
 
 <div class="card sticky" id="topPanel">
 <button id="minimizeBtn">－</button>
-
-<div class="mini-info">
-  <input
-    type="text"
-    id="miniSearch"
-    class="search mini-search"
-    placeholder="🔍 名前・場所で検索"
-  >
-
-  <div class="mini-status">
-    <div id="miniTime"></div>
-    <div id="miniWeather"></div>
-  </div>
-</div>
-  
 <div class="top-content">
-    <div id="time" class="time"></div>
+  <div id="time" class="time"></div>
   <div class="weather-wrap">
   <div id="weatherNow" class="weather-now"></div>
   <div id="weatherNext" class="weather-next"></div>
@@ -864,29 +878,11 @@ body.dark #minimizeBtn{
   </div>
 
   <div class="filter" style="margin-top:6px;">
-    <button onclick="setSort('book')" id="s_book">図鑑順</button>
-    <button onclick="setSort('level')" id="s_level">レベル順</button>
-    <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
-  </div>
-
-<div class="filter" style="margin-top:6px;">
-  <button id="multiBtn" onclick="toggleMultiSelect()">
-    ☑️複数選択
-  </button>
-
-  <button id="bulkCheckBtn"
-          onclick="bulkCheck()"
-          style="display:none;">
-    ⭐一括チェック
-  </button>
-
-  <button id="bulkUncheckBtn"
-          onclick="bulkUncheck()"
-          style="display:none;">
-    ❌一括解除
-  </button>
+  <button onclick="setSort('book')" id="s_book">図鑑順</button>
+  <button onclick="setSort('level')" id="s_level">レベル順</button>
+  <button onclick="setSort('unchecked')" id="s_unchecked">未コンプ順</button>
 </div>
-  
+
   <div class="card" style="margin-top:8px; padding:10px 14px;">
   
   <div style="
@@ -997,7 +993,8 @@ backdrop-filter:blur(4px);
 z-index:2000;
 ">
 
-<div class="update-popup-box" style="
+<div style="
+background:white;
 width:90%;
 max-width:320px;
 margin:80px auto;
@@ -1005,18 +1002,15 @@ padding:18px;
 border-radius:28px;
 text-align:center;
 ">
-  
+
 <h3>🔧不具合修正</h3>
 
 <p style="font-size:12px; line-height:1.7;">
 
- ダークモード使用時の<br>
- 修正時ポップアップの<br>
- 文字の色が見にくいのを修正しました。<br>
- また星ボタンを一括で押せるように<br>
- 複数選択機能を追加しました！<br>
+ メカジキの出現時間が<br>
+ 間違っていたのを修正しました。<br>
  他にもあれば教えてください！
-  
+
 </p>
 
 <button onclick="closeUpdatePopup()">
@@ -1025,78 +1019,16 @@ OK
 
 </div>
 </div>
-
-<div id="helpModal" style="
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.45);
-backdrop-filter:blur(4px);
-z-index:3000;
-">
-
-<div class="help-modal-box" style="
-width:90%;
-max-width:340px;
-margin:50px auto;
-padding:20px;
-border-radius:28px;
-max-height:80vh;
-overflow-y:auto;
-text-align:left;
-">
-
-<h3 style="text-align:center;">
-📖 はとぴ図鑑の使い方
-</h3>
-
-<p><strong>🔍 検索</strong><br>
-名前や場所で検索できます。</p>
-
-<p><strong>🐟 種類</strong><br>
-魚・虫・野鳥を切り替えます。</p>
-
-<p><strong>☀️ 出現モード</strong><br>
-・今出現するもの全て<br>
-・今の天気でしか出現しない<br>
-・今は出現しない</p>
-
-<p><strong>📚 並び替え</strong><br>
-図鑑順・レベル順・未コンプ順で並び替えできます。</p>
-
-<p><strong>⭐ 星5チェック機能</strong><br>
-⭐️ボタンをタップでチェックできます。<br>
-複数選択→一括チェックも可能です。</p>
-
-<p><strong>🎚 レベル範囲</strong><br>
-表示するLvを絞り込めます。</p>
-
-<p><strong>🌠 流星雨</strong><br>
-流星雨は晴れ扱いで判定しています。</p>
-
-<p><strong>➖ 最小化</strong><br>
-上部パネルは「－」ボタンで折りたたみできます。</p>
-
-<div style="text-align:center; margin-top:20px;">
-<button onclick="closeHelpModal()">
-閉じる
-</button>
-</div>
-
-</div>
-</div>
   
 <script>
 
-const APP_VERSION = "1.1.6";
+const APP_VERSION = "1.1.3";
 
 let currentFilter="all";
 let currentSort = "book";
 let weatherMode = "current"; 
 // "current" = 今の天気で出るやつ全部
 // "only" = 今の天気でしか出ないやつ
-let multiSelectMode = false;
-let selectedItems = {};
 
 let currentZone="";
 let currentWeather="";
@@ -1109,19 +1041,19 @@ let checkedData =
 
 // 天気(毎日入力する) 
 const weatherData = {
- "2026-06-12": {
+ "2026-06-14": {
    "6-12":"晴れ",
    "12-18":"晴れ",
+   "18-0":"雨",
+   "0-6":"雨"
+ },
+  "2026-06-16": {
+   "6-12":"雨",
+   "12-18":"雨",
    "18-0":"晴れ",
    "0-6":"晴れ"
  },
-  "2026-06-13": {
-   "6-12":"晴れ",
-   "12-18":"晴れ",
-   "18-0":"晴れ",
-   "0-6":"晴れ"
- },
-   "2026-06-14": {
+   "2026-06-15": {
    "6-12":"晴れ",
    "12-18":"晴れ",
    "18-0":"晴れ",
@@ -3774,54 +3706,24 @@ function formatWeather(arr){
 }
 
 const searchInput = document.getElementById("search");
-const miniSearch = document.getElementById("miniSearch");
 const clearBtn = document.getElementById("clearBtn");
 
 // 入力時
 let searchTimer;
-
-// 通常検索バー
 searchInput.addEventListener("input", ()=>{
-
-  miniSearch.value = searchInput.value;
-
   clearBtn.style.display =
-    searchInput.value ? "block" : "none";
-
-  localStorage.setItem(
-    "searchKeyword",
     searchInput.value
-  );
-
+    ? "block"
+    : "none";
   clearTimeout(searchTimer);
-
   searchTimer = setTimeout(()=>{
     render();
-  },180);
-
-});
-
-// 最小化検索バー
-miniSearch.addEventListener("input", ()=>{
-
-  searchInput.value = miniSearch.value;
-
-  clearBtn.style.display =
-    miniSearch.value ? "block" : "none";
-
-  localStorage.setItem(
-    "searchKeyword",
-    miniSearch.value
-  );
-
-  render();
-
+  }, 180);
 });
 
 // ×ボタン
 clearBtn.onclick = ()=>{
   searchInput.value = "";
-  localStorage.removeItem("searchKeyword");
   clearBtn.style.display = "none";
   render();
 };
@@ -3858,38 +3760,8 @@ function render(){
   }
 
   if (weatherMode === "only") {
-  // 全天気は除外
-  if (c.weather.length === ALL_WEATHER.length) {
-    return false;
+    return weatherMatch && c.weather.length === 1;
   }
-  // 晴れ・流星雨
-  if (weatherForCheck === "晴れ") {
-    return (
-      c.weather.length === 2 &&
-      c.weather.includes("晴れ") &&
-      c.weather.includes("虹") &&
-      timeMatch
-    );
-  }
-  // 雨
-  if (weatherForCheck === "雨") {
-    return (
-      c.weather.length === 2 &&
-      c.weather.includes("雨") &&
-      c.weather.includes("虹") &&
-      timeMatch
-    );
-  }
-  // 虹
-  if (weatherForCheck === "虹") {
-    return (
-      c.weather.length === 1 &&
-      c.weather.includes("虹") &&
-      timeMatch
-    );
-  }
-  return false;
-}
 
   if (weatherMode === "hidden") {
     // 今出現していないもの全部
@@ -3932,27 +3804,27 @@ if(currentSort === "level"){
 if(currentSort === "unchecked"){
   list.sort((a,b)=>{
 
+    const typeOrder = {
+      fish:0,
+      bug:1,
+      bird:2
+    };
+
+    // まず種類順
+    if(typeOrder[a.type] !== typeOrder[b.type]){
+      return typeOrder[a.type] - typeOrder[b.type];
+    }
+
     const aChecked = checkedData[a.name] ? 1 : 0;
     const bChecked = checkedData[b.name] ? 1 : 0;
 
-// まず未コンプ優先
-if(aChecked !== bChecked){
-  return aChecked - bChecked;
-}
+    // 次に未チェック優先
+    if(aChecked !== bChecked){
+      return aChecked - bChecked;
+    }
 
-const typeOrder = {
-  fish:0,
-  bug:1,
-  bird:2
-};
-
-// 次に種類順
-if(typeOrder[a.type] !== typeOrder[b.type]){
-  return typeOrder[a.type] - typeOrder[b.type];
-}
-
-// 最後に図鑑順
-return a.bookIndex - b.bookIndex;
+    // 最後に図鑑順
+    return a.bookIndex - b.bookIndex;
   });
 }
 
@@ -3967,11 +3839,7 @@ return a.bookIndex - b.bookIndex;
 
  list.forEach(c=>{
   const div=document.createElement("div");
-  div.className =
-  "item" +
-  (selectedItems[c.name]
-    ? " selected"
-    : "");
+  div.className="item";
 
   div.innerHTML=`
 
@@ -4007,34 +3875,23 @@ return a.bookIndex - b.bookIndex;
   </div>
 
 `;
-// モーダル
-div.onclick = ()=>{
-  if(multiSelectMode){
-    selectedItems[c.name] =
-      !selectedItems[c.name];
-    div.classList.toggle(
-      "selected",
-      selectedItems[c.name]
-    );
-    return;
-  }
-  openModal(c);
-};
+   // モーダル
+div.onclick=()=>openModal(c);
 
 // チェックボタン
 const checkBtn = div.querySelector(".check-btn");
-   
+
 checkBtn.onclick = (e)=>{
+
   e.stopPropagation();
-  // 複数選択中は星ボタン無効
-  if(multiSelectMode){
-    return;
-  }
+
   checkedData[c.name] = !checkedData[c.name];
+
   localStorage.setItem(
     "checkedData",
     JSON.stringify(checkedData)
   );
+
   render();
 };
 
@@ -4079,14 +3936,6 @@ function updateTime(){
   `今： ${weather}`;
  document.getElementById("weatherNext").innerText =
   `次：${nextWeather}`;
- document.getElementById("miniTime").innerText =
-  now.toLocaleTimeString([], {
-    hour:"2-digit",
-    minute:"2-digit"
-  });
-
-document.getElementById("miniWeather").innerText =
-  weather;
 
  // 👇 変化した時だけrender
  if(changed){
@@ -4109,7 +3958,7 @@ function getDateKey(offset=0){
 // 切替関数
 function setWeatherMode(mode){
   weatherMode = mode;
-  localStorage.setItem("weatherMode", mode);
+
   ["current","only","hidden"].forEach(x=>{
     document.getElementById("w_"+x).classList.remove("active");
   });
@@ -4122,7 +3971,6 @@ function setWeatherMode(mode){
 // フィルター
 function setFilter(t){
  currentFilter=t;
- localStorage.setItem("currentFilter", t);
  ["all","fish","bug","bird"].forEach(x=>{
   document.getElementById("f_"+x).classList.remove("active");
  });
@@ -4132,7 +3980,6 @@ function setFilter(t){
 
 function setSort(type){
   currentSort = type;
-  localStorage.setItem("currentSort", type);
   ["book","level","unchecked"].forEach(x=>{
     document.getElementById("s_"+x).classList.remove("active");
   });
@@ -4239,48 +4086,6 @@ function closeModal(){
  modal.style.display="none";
 }
 
-function toggleMultiSelect(){
-  multiSelectMode = !multiSelectMode;
-  document.getElementById("multiBtn")
-    .classList.toggle("active", multiSelectMode);
-  document.getElementById("bulkCheckBtn").style.display =
-    multiSelectMode ? "block" : "none";
-  document.getElementById("bulkUncheckBtn").style.display =
-    multiSelectMode ? "block" : "none";
-  if(!multiSelectMode){
-    selectedItems = {};
-  }
-  render();
-}
-
-function bulkCheck(){
-  Object.keys(selectedItems).forEach(name=>{
-    if(selectedItems[name]){
-      checkedData[name] = true;
-    }
-  });
-  localStorage.setItem(
-    "checkedData",
-    JSON.stringify(checkedData)
-  );
-  selectedItems = {};
-  render();
-} 
-
-function bulkUncheck(){
-  Object.keys(selectedItems).forEach(name=>{
-    if(selectedItems[name]){
-      checkedData[name] = false;
-    }
-  });
-  localStorage.setItem(
-    "checkedData",
-    JSON.stringify(checkedData)
-  );
-  selectedItems = {};
-  render();
-}
-
 const levelMin = document.getElementById("levelMin");
 const levelMax = document.getElementById("levelMax");
 const levelRangeText =
@@ -4300,9 +4105,6 @@ function updateLevelRange(){
   levelRangeText.textContent =
     `Lv.${minLevel}〜${maxLevel}`;
 
-  localStorage.setItem("minLevel", minLevel);
-  localStorage.setItem("maxLevel", maxLevel);
-  
   render();
 }
 
@@ -4316,7 +4118,7 @@ levelMax.addEventListener(
   updateLevelRange
 );
 
-const popupVersion = "1.1.6";
+const popupVersion = "1.1.3";
 
 if(
  localStorage.getItem("popupVersion")
@@ -4354,57 +4156,29 @@ if(localStorage.getItem("topMinimized") === "true"){
 
 // ボタン
 minimizeBtn.onclick = ()=>{
+
   topPanel.classList.toggle("minimized");
+
   const minimized =
     topPanel.classList.contains("minimized");
+
   minimizeBtn.textContent =
     minimized
     ? "＋"
     : "－";
+
   localStorage.setItem(
     "topMinimized",
     minimized
   );
 };
 
-const helpBtn = document.getElementById("helpBtn");
-const helpModal = document.getElementById("helpModal");
-helpBtn.onclick = ()=>{
-  helpModal.style.display = "block";
-};
-
-function closeHelpModal(){
-  helpModal.style.display = "none";
-}
-
-helpModal.onclick = (e)=>{
-  if(e.target === helpModal){
-    closeHelpModal();
-  }
-};
-
 // 初期化
-updateTime();
-// 保存データ読込
-searchInput.value =
-  localStorage.getItem("searchKeyword") || "";
-clearBtn.style.display =
-  searchInput.value ? "block" : "none";
-levelMin.value =
-  localStorage.getItem("minLevel") || 1;
-levelMax.value =
-  localStorage.getItem("maxLevel") || 12;
-updateLevelRange();
-setFilter(
-  localStorage.getItem("currentFilter") || "all"
-);
-setSort(
-  localStorage.getItem("currentSort") || "book"
-);
-setWeatherMode(
-  localStorage.getItem("weatherMode") || "current"
-);
+updateTime();        // ←先に状態作る
+setFilter("all");    // ←ここで初回render
+setSort("book");
 setInterval(updateTime,1000);
+setWeatherMode("current");
 
 document.getElementById("version").textContent =
   "Ver " + APP_VERSION;
@@ -4413,7 +4187,7 @@ document.getElementById("disclaimer").textContent =
   "※本ツールは個人が制作した非公式のものです。ゲーム公式とは一切関係ありません。";
 
 document.getElementById("lastUpdate").textContent =
-  "最終更新 2026/06/12";
+  "最終更新 2026/06/11";
 </script>
 
 </body>
