@@ -1013,16 +1013,15 @@ text-align:center;
 今後の更新は新サイトで行います。<br><br>
 
 お気に入り登録・ホーム画面追加をしている方は、<br>
-新サイトへの変更をお願いします。
+新サイトへの変更をお願いします。<br><br>
+
+現在登録されている星ボタンはリセットになるため、<br>
+お手数おかけしますが再度ご登頂けますと幸いです。
 
 </p>
 
 <button onclick="window.open('https://ram1x7.github.io/heartopilist/','_blank')">
 新サイトを開く
-</button>
-
-<button onclick="migrateData()">
-⭐チェックデータを新サイトへ移行
 </button>
 
 <button
@@ -4095,21 +4094,6 @@ if(c.type === "bird"){
   c.star5
   ? `★5条件：<br>${c.star5}`
   : "";
-}
-
-function migrateData(){
-  const data = localStorage.getItem("checkedData");
-
-  if(!data){
-    alert("移行するデータがありません");
-    return;
-  }
-
-  const url =
-    "https://ram1x7.github.io/heartopilist/?import="
-    + encodeURIComponent(data);
-
-  window.open(url, "_blank");
 }
   
 function closeModal(){
